@@ -1,10 +1,10 @@
 package edu.upenn.library.elements.api.resources.category;
 
-public class Id extends CategoryResource {
+public class Single extends CategoryResource {
 
   private final String id;
 
-  public Id(Category category, String id) {
+  public Single(Category category, String id) {
     super(category);
     this.id = id;
   }

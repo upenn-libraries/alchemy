@@ -1,5 +1,6 @@
 package edu.upenn.library.elements.api;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -69,7 +70,7 @@ public class Api {
 
   }
 
-  private String constructURL(Resource resource) {
+  public String constructURL(Resource resource) {
     StringBuilder url = new StringBuilder();
     url.append(baseUrl);
     url.append(resource.getPath());
@@ -94,6 +95,13 @@ public class Api {
     return url.toString();
   }
 
+  public String constructURL(String path) {
+    StringBuilder url = new StringBuilder();
+    url.append(baseUrl);
+    url.append(path);
+    return url.toString();
+  }
+
   /**
    * Makes a GET request for a resource, which should return an Atom feed.
    * @param resource
@@ -105,9 +113,7 @@ public class Api {
 
     logger.debug("Making request: " + url);
 
-    HttpGet httpget = new HttpGet(url);
-
-    CloseableHttpResponse response = httpClient.execute(httpget);
+    CloseableHttpResponse response = doGet(url);
 
     if(response.getStatusLine().getStatusCode() != 200) {
       throw new Exception("Error making HTTP request: " + response.getStatusLine().toString());
@@ -124,6 +130,11 @@ public class Api {
     response.close();
 
     return feed;
+  }
+
+  public CloseableHttpResponse doGet(String url) throws IOException {
+    HttpGet httpget = new HttpGet(url);
+    return httpClient.execute(httpget);
   }
 
   // TODO: create methods for handling destructive operations: POST, PUT, DELETE

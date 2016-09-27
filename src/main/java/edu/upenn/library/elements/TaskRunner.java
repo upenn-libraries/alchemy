@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import edu.upenn.library.elements.tasks.CategoryTypesReport;
+import edu.upenn.library.elements.tasks.Dump;
 import edu.upenn.library.elements.tasks.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,7 @@ public class TaskRunner {
 
   protected void initTasks() {
     tasks.add(CategoryTypesReport.class);
+    tasks.add(Dump.class);
   }
 
   public List<Class> getTasks() { return tasks; }
