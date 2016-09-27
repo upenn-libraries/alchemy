@@ -1,0 +1,90 @@
+package edu.upenn.library.elements;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import edu.upenn.library.elements.tasks.CategoryTypesReport;
+import edu.upenn.library.elements.tasks.Task;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * A TaskRunner is reusable and maintains configuration info
+ * and a registry of built-in tasks. The CLI is basically just a
+ * thin wrapper around this class.
+ */
+public class TaskRunner {
+
+  public static final String CONFIG_FILENAME = "elements-tools.properties";
+
+  private final Logger logger = LoggerFactory.getLogger(TaskRunner.class);
+
+  private Config config = new Config();
+  private List<Class> tasks = new ArrayList<>();
+
+  public TaskRunner() throws IOException {
+    initConfig(CONFIG_FILENAME);
+    initTasks();
+  }
+
+  protected void initConfig(String filename) throws IOException {
+    File configFile = new File(filename);
+    if(configFile.exists()) {
+      config.load(new FileReader(configFile));
+    }
+  }
+
+  protected void initTasks() {
+    tasks.add(CategoryTypesReport.class);
+  }
+
+  public void run(String taskName, String[] args) {
+    Task task = null;
+    Optional<Class> taskOpt = tasks.stream().filter(c -> taskName.equals(c.getSimpleName())).findFirst();
+    if (taskOpt.isPresent()) {
+      // try loading Task via our list of registered tasks
+      try {
+        task = (Task) taskOpt.get().newInstance();
+      } catch (Exception e) {
+        logger.error("Couldn't instantiate task: " + e);
+      }
+    } else {
+      // try loading Task via fully qualified Task name
+      Class clazz = null;
+      try {
+        clazz = Class.forName(taskName);
+      } catch (ClassNotFoundException e) {
+        // handle below
+      }
+      if (clazz != null) {
+        try {
+          task = (Task) clazz.newInstance();
+        } catch (Exception e) {
+          logger.error("Couldn't instantiate task: " + e);
+        }
+      }
+    }
+    if(task != null) {
+      run(task, args);
+    } else {
+      logger.error("Task not found: " + taskName);
+    }
+  }
+
+  public void run(Task task, String[] args) {
+    task.init(config, args);
+    try {
+      task.execute();
+    } catch(Exception e) {
+      logger.error("Problem occurred while executing task: " + e.getMessage());
+      logger.debug("Stack trace: ");
+      for (StackTraceElement ste : e.getStackTrace()) {
+        logger.debug(ste.toString());
+      }
+    }
+  }
+
+}
