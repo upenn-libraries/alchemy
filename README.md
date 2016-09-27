@@ -2,7 +2,7 @@
 # elements-tools
 
 A Java library and command-line interface (CLI) for working with the
-Symplectic Elements API.
+[Symplectic Elements](http://symplectic.co.uk/products/elements/) API.
 
 This project is a work in progress, and is not affiliated with or
 supported by Symplectic. Please read the license.
@@ -13,39 +13,41 @@ Install Java 1.8 on your system if it isn't already installed. Any
 platform that runs Java (Linux, Windows, Mac) should
 work. Theoretically.
 
-Download the most recent .jar file.
+Download the most recent .zip distribution file. (TODO: create this!)
 
-Create a file named `elements-tools.properties` with the following:
-
-```
-elements_tools.api.url=https://localhost:8090/elements-api/v4.9
-elements_tools.api.ignore_cert_mismatch=false
-elements_tools.api.username=someuser
-elements_tools.api.password=somepassword
-```
+Copy `elements-tools.sample.properties` to `elements-tools.properties`
+and edit it to suit your environment. See the comments in the file for
+more information.
 
 # How to Run the CLI App
 
 To run a task:
 ```
-java -jar target/elements-tools-0.1-SNAPSHOT.jar Report
+java -jar target/elements-tools-0.1-SNAPSHOT.jar CategoryTypesReport publications pubtypes.csv
 ```
 
 There is a convenience shell script for Linux and Mac:
 ```
-./elements-tools.sh Report
+./elements-tools.sh CategoryTypesReport publications pubtypes.csv
 ```
 
-# Existing Tasks
+To get help:
 
-The app comes with several tasks.
+```
+# shows a list of available tasks
+./elements-tools.sh -h
+
+# shows help for this specific task
+./elements-tools.sh CategoryTypesReport -h
+```
 
 # Writing your own tasks
 
-The library was designed to make writing your own tasks easy. In an
-nutshell, all you need to do is create a subclass of Task, make sure
-it's in the classpath when running Java, and use the full name of the
-task when running the CLI program.
+The library was designed to make writing your own tasks easy:
+
+- create a subclass of Task
+- make sure it's in the classpath when running the CLI
+- use the full name of the class to refer to the task 
 
 For example, if you create a class named edu.college.MyTask and
 compile it into mycode.jar, run the CLI app as follows:

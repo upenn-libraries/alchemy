@@ -46,6 +46,8 @@ public class TaskRunner {
     tasks.add(CategoryTypesReport.class);
   }
 
+  public List<Class> getTasks() { return tasks; }
+
   public void run(String taskName, Map<String, List<String>> options, List<String> args) {
     Task task = null;
     Optional<Class> taskOpt = tasks.stream().filter(c -> taskName.equals(c.getSimpleName())).findFirst();

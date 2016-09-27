@@ -42,25 +42,33 @@ public class App {
   protected Logger logger;
 
   public App(String[] args) {
-    if(args.length > 0) {
+    initLogger();
 
-      initLogger();
+    CommandLine commandLine = null;
+    try {
+      commandLine = parseArgs(args);
+    } catch(ParseException e) {
+      logger.error("Problem parsing CLI arguments: " + e.getMessage());
+      System.exit(-1);
+    }
+    String configPath = commandLine.getOptionValue("c", TaskRunner.CONFIG_FILENAME);
 
-      CommandLine commandLine = null;
-      try {
-        commandLine = parseArgs(args);
-      } catch(ParseException e) {
-        logger.error("Problem parsing CLI arguments: " + e.getMessage());
-        System.exit(-1);
-      }
-      String configPath = commandLine.getOptionValue("c", TaskRunner.CONFIG_FILENAME);
-
-      String[] cliArgs = commandLine.getArgs();
+    String[] cliArgs = commandLine.getArgs();
+    if(cliArgs.length > 0) {
       String taskName = cliArgs[0];
-
       run(configPath, taskName, commandLine);
     } else {
       System.out.println("Usage: elements-tools TASK [params]");
+      System.out.println("");
+      System.out.println("Available tasks (run with -h to get help for a specific task):");
+      System.out.println("");
+      try {
+        for (Class taskClass : new TaskRunner().getTasks()) {
+          System.out.println("  " + taskClass.getSimpleName());
+        }
+      } catch (IOException e) {
+        logger.error("Error instantiating TaskRunner: " + e.getMessage());
+      }
     }
   }
 
