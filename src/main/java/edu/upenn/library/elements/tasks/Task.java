@@ -1,7 +1,10 @@
 package edu.upenn.library.elements.tasks;
 
+import java.util.List;
+import java.util.Map;
 import edu.upenn.library.elements.Config;
 import edu.upenn.library.elements.api.Api;
+import org.apache.commons.cli.CommandLine;
 
 /**
  * Base class for writing your own custom Tasks to interact
@@ -12,16 +15,20 @@ import edu.upenn.library.elements.api.Api;
 public abstract class Task {
 
   private Config config;
-  private String[] args;
+  private Map<String, List<String>> options;
+  private List<String> args;
   private Api api;
 
-  public void init(Config config, String[] args) {
+  public abstract String getDescription();
+
+  public void init(Config config, Map<String, List<String>> options, List<String> args) throws Exception {
     this.config = config;
+    this.options = options;
     this.args = args;
     createApi();
   }
 
-  protected void createApi() {
+  protected void createApi() throws Exception {
     if(this.api == null) {
       String url = config.getProperty(Config.KEY_API_URL);
       Boolean ignoreCertMismatch = new Boolean(config.getProperty(Config.KEY_API_IGNORE_CERT_MISMATCH, "false"));
@@ -40,7 +47,11 @@ public abstract class Task {
     return config;
   }
 
-  protected String[] getArgs() {
+  protected Map<String, List<String>> getOptions() {
+    return options;
+  }
+
+  protected List<String> getArgs() {
     return args;
   }
 

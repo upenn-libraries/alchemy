@@ -28,13 +28,20 @@ public class CategoryTypesReport extends Task {
   }
 
   @Override
+  public String getDescription() {
+    return "Usage: CategoryTypesReport [category] [output file]\n" +
+      "\n" +
+      "Generate report of field definitions for the specified category.\n";
+  }
+
+  @Override
   public void execute() throws Exception {
-    if(getArgs().length < 2) {
+    if(getArgs().size() < 3) {
       logger.error("You must specify an Elements category and filename argument.");
       return;
     }
-    String categoryName = getArgs()[0];
-    String filename = getArgs()[1];
+    String categoryName = getArgs().get(1);
+    String filename = getArgs().get(2);
 
     FileWriter writer = new FileWriter(filename);
     CSVPrinter printer = CSVFormat.DEFAULT.print(writer);

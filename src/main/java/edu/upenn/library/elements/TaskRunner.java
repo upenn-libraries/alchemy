@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import edu.upenn.library.elements.tasks.CategoryTypesReport;
 import edu.upenn.library.elements.tasks.Task;
@@ -45,7 +46,7 @@ public class TaskRunner {
     tasks.add(CategoryTypesReport.class);
   }
 
-  public void run(String taskName, String[] args) {
+  public void run(String taskName, Map<String, List<String>> options, List<String> args) {
     Task task = null;
     Optional<Class> taskOpt = tasks.stream().filter(c -> taskName.equals(c.getSimpleName())).findFirst();
     if (taskOpt.isPresent()) {
@@ -72,18 +73,31 @@ public class TaskRunner {
       }
     }
     if(task != null) {
-      run(task, args);
+      if(options.containsKey("h")) {
+        System.out.println(task.getDescription());
+      } else {
+        run(task, options, args);
+      }
     } else {
       logger.error("Task not found: " + taskName);
     }
   }
 
-  public void run(Task task, String[] args) {
-    task.init(config, args);
+  public void run(Task task, Map<String, List<String>> options, List<String> args) {
+    try {
+      task.init(config, options, args);
+    } catch(Exception e) {
+      logger.error("Problem occurred in task.init(): " + e.getMessage());
+      logger.debug("Stack trace: ");
+      for (StackTraceElement ste : e.getStackTrace()) {
+        logger.debug(ste.toString());
+      }
+      return;
+    }
     try {
       task.execute();
     } catch(Exception e) {
-      logger.error("Problem occurred while executing task: " + e.getMessage());
+      logger.error("Problem occurred in task.execute(): " + e.getMessage());
       logger.debug("Stack trace: ");
       for (StackTraceElement ste : e.getStackTrace()) {
         logger.debug(ste.toString());
