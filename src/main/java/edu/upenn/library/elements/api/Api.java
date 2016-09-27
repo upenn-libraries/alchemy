@@ -106,6 +106,11 @@ public class Api {
     HttpGet httpget = new HttpGet(url);
 
     CloseableHttpResponse response = httpClient.execute(httpget);
+
+    if(response.getStatusLine().getStatusCode() != 200) {
+      throw new Exception("Error making HTTP request: " + response.getStatusLine().toString());
+    }
+
     InputStreamReader isr = new InputStreamReader(response.getEntity().getContent());
 
     SyndFeedInput input = new SyndFeedInput();

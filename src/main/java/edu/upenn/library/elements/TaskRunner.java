@@ -26,7 +26,11 @@ public class TaskRunner {
   private List<Class> tasks = new ArrayList<>();
 
   public TaskRunner() throws IOException {
-    initConfig(CONFIG_FILENAME);
+    this(CONFIG_FILENAME);
+  }
+
+  public TaskRunner(String configPath) throws IOException {
+    initConfig(configPath);
     initTasks();
   }
 
