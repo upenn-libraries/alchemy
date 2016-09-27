@@ -17,6 +17,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,8 @@ public class Api {
   private String baseUrl;
   private CloseableHttpClient httpClient;
 
-  public Api(String baseUrl, String username, String password) {
+  public Api(String baseUrl, String username, String password)
+    throws MalformedURLException {
     this(baseUrl, username, password, false);
   }
 
@@ -40,27 +42,27 @@ public class Api {
    * @param baseUrl the API endpoint as defined in Elements
    * @param ignoreCertMismatch set to true when running over ssh tunnel
    */
-  public Api(String baseUrl, String username, String password, boolean ignoreCertMismatch) {
+  public Api(String baseUrl, String username, String password, boolean ignoreCertMismatch)
+    throws MalformedURLException {
 
     this.baseUrl = baseUrl;
 
-    if (ignoreCertMismatch) {
-      URL url = null;
-      try {
-        url = new URL(baseUrl);
-      } catch(MalformedURLException e) {
-        logger.error("Invalid URL, couldn't extract hostname from it: " + baseUrl);
-      }
+    URL url = new URL(baseUrl);
 
+    if ("https".equals(url.getProtocol())) {
       CredentialsProvider credsProvider = new BasicCredentialsProvider();
       credsProvider.setCredentials(
               new AuthScope(url.getHost(), AuthScope.ANY_PORT),
               new UsernamePasswordCredentials(username, password));
 
-      this.httpClient = HttpClients.custom()
-              .setSSLHostnameVerifier(new NoopHostnameVerifier())
-              .setDefaultCredentialsProvider(credsProvider)
-              .build();
+      HttpClientBuilder builder = HttpClients.custom()
+        .setDefaultCredentialsProvider(credsProvider);
+
+      if(ignoreCertMismatch) {
+        builder = builder.setSSLHostnameVerifier(new NoopHostnameVerifier());
+      }
+
+      this.httpClient = builder.build();
     } else {
       this.httpClient = HttpClients.createDefault();
     }
