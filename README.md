@@ -9,9 +9,9 @@ supported by Symplectic. Please read the license.
 
 # Installation and Configuration
 
-Install Java 1.8 on your system if it isn't already installed. Any
-platform that runs Java (Linux, Windows, Mac) should
-work. Theoretically.
+This should work on any platform that runs Java (Linux, Windows, Mac). Theoretically.
+
+Install Java 1.8 if it isn't already installed.
 
 Download the most recent .zip distribution file. (TODO: create this!)
 
@@ -19,7 +19,11 @@ Copy `elements-tools.sample.properties` to `elements-tools.properties`
 and edit it to suit your environment. See the comments in the file for
 more information.
 
-# How to Run the CLI App
+# Running the CLI App
+
+The CLI app runs 'tasks', which are simply Java classes that a simple
+framework that facilitates interaction with the Elements API. The app
+ships with several predefined tasks; you can also create your own.
 
 To run a task:
 ```
@@ -69,3 +73,5 @@ mvn package
 Please contribute!
 
 # License
+
+TODO
