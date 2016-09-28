@@ -41,12 +41,12 @@ public class CategoryTypesReport extends Task {
 
   @Override
   public void execute() throws Exception {
-    if(getArgs().size() < 3) {
+    if(getArgs().size() < 2) {
       logger.error("You must specify an Elements category and filename argument.");
       return;
     }
-    String categoryName = getArgs().get(1);
-    String filename = getArgs().get(2);
+    String categoryName = getArgs().get(0);
+    String filename = getArgs().get(1);
 
     FileWriter writer = new FileWriter(filename);
     CSVPrinter printer = CSVFormat.DEFAULT.print(writer);

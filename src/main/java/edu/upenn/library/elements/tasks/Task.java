@@ -1,5 +1,8 @@
 package edu.upenn.library.elements.tasks;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import edu.upenn.library.elements.Config;
@@ -8,10 +11,9 @@ import edu.upenn.library.elements.api.Api;
 /**
  * Base class for writing your own custom Tasks to interact
  * with the Elements API. The app is responsible for initializing
- * your Task, populating it with some data (config, arguments supplied),
- * and creating an Api object for you to use. You do the rest.
- *
- * TODO: provide a JDBC connection object?
+ * your Task and populating it with some data (config,
+ * arguments supplied). Your implementation of execute() can then
+ * use the methods for accessing the API and the reporting database.
  */
 public abstract class Task {
 
@@ -19,6 +21,7 @@ public abstract class Task {
   private Map<String, List<String>> options;
   private List<String> args;
   private Api api;
+  private Connection connection;
 
   public abstract String getDescription();
 
@@ -40,6 +43,16 @@ public abstract class Task {
         ignoreCertMismatch);
     }
     return api;
+  }
+
+  protected Connection getDatabaseConnection() throws SQLException {
+    if(connection == null) {
+      connection = DriverManager.getConnection(
+        config.getProperty(Config.KEY_DATABASE_REPORTING_URL),
+        config.getProperty(Config.KEY_DATABASE_REPORTING_USERNAME),
+        config.getProperty(Config.KEY_DATABASE_REPORTING_PASSWORD));
+    }
+    return connection;
   }
 
   protected Config getConfig() {

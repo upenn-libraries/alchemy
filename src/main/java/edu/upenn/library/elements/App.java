@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import edu.upenn.library.elements.tasks.CategoryTypesReport;
 import edu.upenn.library.elements.tasks.Dump;
+import edu.upenn.library.elements.tasks.GetUserId;
 import edu.upenn.library.elements.tasks.Task;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -46,6 +47,7 @@ public class App {
     TaskResolver taskResolver = new TaskResolver();
     taskResolver.addTask(new Dump());
     taskResolver.addTask(new CategoryTypesReport());
+    taskResolver.addTask(new GetUserId());
     return taskResolver;
   }
 

@@ -59,7 +59,7 @@ public class TaskRunner {
 
   public void run(Task task, Map<String, List<String>> options, List<String> args) {
     try {
-      task.init(config, options, args);
+      task.init(config, options, args.subList(1, args.size()));
     } catch(Exception e) {
       logger.error("Problem occurred in task.init(): " + e.getMessage());
       logger.debug("Stack trace: ");

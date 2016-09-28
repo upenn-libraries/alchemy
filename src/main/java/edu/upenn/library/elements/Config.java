@@ -9,4 +9,8 @@ public class Config extends Properties {
   public static final String KEY_API_USERNAME = "elements_tools.api.username";
   public static final String KEY_API_PASSWORD = "elements_tools.api.password";
 
+  public static final String KEY_DATABASE_REPORTING_URL = "elements_tools.database.reporting.url";
+  public static final String KEY_DATABASE_REPORTING_USERNAME = "elements_tools.database.reporting.username";
+  public static final String KEY_DATABASE_REPORTING_PASSWORD = "elements_tools.database.reporting.password";
+
 }

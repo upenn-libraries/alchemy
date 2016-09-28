@@ -31,14 +31,14 @@ public class Dump extends Task {
 
   @Override
   public void execute() throws Exception {
-    if(getArgs().size() < 2) {
+    if(getArgs().size() < 1) {
       logger.error("You must specify a url path, and optionally, an output file");
       return;
     }
-    String urlPath = getArgs().get(1);
+    String urlPath = getArgs().get(0);
     String filePath = null;
-    if(getArgs().size() == 3) {
-      filePath = getArgs().get(2);
+    if(getArgs().size() == 2) {
+      filePath = getArgs().get(1);
     }
 
     CloseableHttpResponse response = getApi().doGet(getApi().constructURL(urlPath));
