@@ -78,12 +78,13 @@ public class App {
       run(taskName, commandLine);
     } else {
       System.out.println("Usage: elements-tools TASK [params]");
-      System.out.println("");
+      System.out.println();
       System.out.println("Available tasks (run with -h to get help for a specific task):");
-      System.out.println("");
+      System.out.println();
       for (Task task : taskResolver.getTasks()) {
         System.out.println("  " + task.getClass().getSimpleName() + " - " + task.getDescription());
       }
+      System.out.println();
     }
   }
 

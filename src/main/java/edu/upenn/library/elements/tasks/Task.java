@@ -10,6 +10,8 @@ import edu.upenn.library.elements.api.Api;
  * with the Elements API. The app is responsible for initializing
  * your Task, populating it with some data (config, arguments supplied),
  * and creating an Api object for you to use. You do the rest.
+ *
+ * TODO: provide a JDBC connection object?
  */
 public abstract class Task {
 
@@ -26,10 +28,9 @@ public abstract class Task {
     this.config = config;
     this.options = options;
     this.args = args;
-    createApi();
   }
 
-  protected void createApi() throws Exception {
+  protected Api getApi() throws Exception {
     if(this.api == null) {
       String url = config.getProperty(Config.KEY_API_URL);
       Boolean ignoreCertMismatch = new Boolean(config.getProperty(Config.KEY_API_IGNORE_CERT_MISMATCH, "false"));
@@ -38,9 +39,6 @@ public abstract class Task {
         config.getProperty(Config.KEY_API_PASSWORD),
         ignoreCertMismatch);
     }
-  }
-
-  protected Api getApi() {
     return api;
   }
 
