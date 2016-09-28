@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import edu.upenn.library.elements.Task;
 import edu.upenn.library.elements.api.Feed;
 import edu.upenn.library.elements.api.FeedEntry;
 import edu.upenn.library.elements.api.Category;

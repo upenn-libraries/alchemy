@@ -7,7 +7,6 @@ import java.util.Map;
 import edu.upenn.library.elements.tasks.CategoryTypesReport;
 import edu.upenn.library.elements.tasks.Dump;
 import edu.upenn.library.elements.tasks.GetUserId;
-import edu.upenn.library.elements.tasks.Task;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;

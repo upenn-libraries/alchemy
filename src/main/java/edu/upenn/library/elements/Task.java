@@ -1,4 +1,4 @@
-package edu.upenn.library.elements.tasks;
+package edu.upenn.library.elements;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -3,7 +3,6 @@ package edu.upenn.library.elements;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import edu.upenn.library.elements.tasks.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

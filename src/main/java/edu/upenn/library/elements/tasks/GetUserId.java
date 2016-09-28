@@ -3,6 +3,7 @@ package edu.upenn.library.elements.tasks;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import edu.upenn.library.elements.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
