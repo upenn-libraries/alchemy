@@ -37,6 +37,8 @@ public class GetUserId extends Task {
     ResultSet rs = ps.executeQuery();
     if(rs.next()) {
       System.out.println("ID for " + username + " = " + rs.getInt(1));
+    } else {
+      System.out.println("Couldn't find user " + username);
     }
   }
 }
