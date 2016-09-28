@@ -48,7 +48,7 @@ public class TaskRunner {
     }
     if(task != null) {
       if(options.containsKey("h")) {
-        System.out.println(task.getDescription());
+        System.out.println(task.getHelp());
       } else {
         run(task, options, args);
       }
