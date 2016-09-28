@@ -3,12 +3,8 @@ package edu.upenn.library.elements;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import edu.upenn.library.elements.tasks.CategoryTypesReport;
-import edu.upenn.library.elements.tasks.Dump;
 import edu.upenn.library.elements.tasks.Task;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,16 +20,16 @@ public class TaskRunner {
 
   private final Logger logger = LoggerFactory.getLogger(TaskRunner.class);
 
+  private TaskResolver taskResolver;
   private Config config = new Config();
-  private List<Class> tasks = new ArrayList<>();
 
-  public TaskRunner() throws IOException {
-    this(CONFIG_FILENAME);
+  public TaskRunner(TaskResolver taskResolver) throws IOException {
+    this(taskResolver, CONFIG_FILENAME);
   }
 
-  public TaskRunner(String configPath) throws IOException {
+  public TaskRunner(TaskResolver taskResolver, String configPath) throws IOException {
+    this.taskResolver = taskResolver;
     initConfig(configPath);
-    initTasks();
   }
 
   protected void initConfig(String filename) throws IOException {
@@ -43,38 +39,12 @@ public class TaskRunner {
     }
   }
 
-  protected void initTasks() {
-    tasks.add(CategoryTypesReport.class);
-    tasks.add(Dump.class);
-  }
-
-  public List<Class> getTasks() { return tasks; }
-
   public void run(String taskName, Map<String, List<String>> options, List<String> args) {
     Task task = null;
-    Optional<Class> taskOpt = tasks.stream().filter(c -> taskName.equals(c.getSimpleName())).findFirst();
-    if (taskOpt.isPresent()) {
-      // try loading Task via our list of registered tasks
-      try {
-        task = (Task) taskOpt.get().newInstance();
-      } catch (Exception e) {
-        logger.error("Couldn't instantiate task: " + e);
-      }
-    } else {
-      // try loading Task via fully qualified Task name
-      Class clazz = null;
-      try {
-        clazz = Class.forName(taskName);
-      } catch (ClassNotFoundException e) {
-        // handle below
-      }
-      if (clazz != null) {
-        try {
-          task = (Task) clazz.newInstance();
-        } catch (Exception e) {
-          logger.error("Couldn't instantiate task: " + e);
-        }
-      }
+    try {
+      task = taskResolver.getTask(taskName);
+    } catch(Exception e) {
+      logger.error("Couldn't get task: " + e.getMessage());
     }
     if(task != null) {
       if(options.containsKey("h")) {

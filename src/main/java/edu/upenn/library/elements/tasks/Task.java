@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import edu.upenn.library.elements.Config;
 import edu.upenn.library.elements.api.Api;
-import org.apache.commons.cli.CommandLine;
 
 /**
  * Base class for writing your own custom Tasks to interact
@@ -20,6 +19,8 @@ public abstract class Task {
   private Api api;
 
   public abstract String getDescription();
+
+  public abstract String getHelp();
 
   public void init(Config config, Map<String, List<String>> options, List<String> args) throws Exception {
     this.config = config;

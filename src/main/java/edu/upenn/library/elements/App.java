@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import edu.upenn.library.elements.tasks.CategoryTypesReport;
+import edu.upenn.library.elements.tasks.Dump;
+import edu.upenn.library.elements.tasks.Task;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -39,7 +42,16 @@ public class App {
     return options;
   }
 
+  public static TaskResolver createDefaultTaskResolver() {
+    TaskResolver taskResolver = new TaskResolver();
+    taskResolver.addTask(new Dump());
+    taskResolver.addTask(new CategoryTypesReport());
+    return taskResolver;
+  }
+
   protected Logger logger;
+  protected TaskResolver taskResolver = null;
+  protected TaskRunner taskRunner = null;
 
   public App(String[] args) {
     initLogger();
@@ -53,21 +65,24 @@ public class App {
     }
     String configPath = commandLine.getOptionValue("c", TaskRunner.CONFIG_FILENAME);
 
+    this.taskResolver = createDefaultTaskResolver();
+    try {
+      this.taskRunner = new TaskRunner(taskResolver, configPath);
+    } catch(IOException ioe) {
+      logger.error("Error instantiating TaskRunner: " + ioe.getMessage());
+    }
+
     String[] cliArgs = commandLine.getArgs();
     if(cliArgs.length > 0) {
       String taskName = cliArgs[0];
-      run(configPath, taskName, commandLine);
+      run(taskName, commandLine);
     } else {
       System.out.println("Usage: elements-tools TASK [params]");
       System.out.println("");
       System.out.println("Available tasks (run with -h to get help for a specific task):");
       System.out.println("");
-      try {
-        for (Class taskClass : new TaskRunner().getTasks()) {
-          System.out.println("  " + taskClass.getSimpleName());
-        }
-      } catch (IOException e) {
-        logger.error("Error instantiating TaskRunner: " + e.getMessage());
+      for (Task task : taskResolver.getTasks()) {
+        System.out.println("  " + task.getClass().getSimpleName() + " - " + task.getDescription());
       }
     }
   }
@@ -79,16 +94,9 @@ public class App {
     logger = LoggerFactory.getLogger(TaskRunner.class);
   }
 
-  public void run(String configPath, String taskName, CommandLine commandLine) {
-    TaskRunner runner = null;
-    try {
-      runner = new TaskRunner(configPath);
-    } catch(IOException ioe) {
-      logger.error("Error instantiating TaskRunner: " + ioe.getMessage());
-    }
-
-    if(runner != null) {
-      runner.run(taskName, extractOptions(commandLine), commandLine.getArgList());
+  public void run(String taskName, CommandLine commandLine) {
+    if(taskRunner != null) {
+      taskRunner.run(taskName, extractOptions(commandLine), commandLine.getArgList());
     }
   }
 

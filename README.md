@@ -45,6 +45,19 @@ To get help:
 ./elements-tools.sh CategoryTypesReport -h
 ```
 
+# Using as a Library
+
+To run tasks from your own code:
+
+```java
+Map<String, List<String>> options = ...
+List<String> args = ...
+
+TaskResolver taskResolver = App.createDefaultTaskResolver();
+TaskRunner taskRunner = new TaskRunner(taskResolver);
+taskRunner.run("CategoryTypesReport", options, args);
+```
+
 # Writing your own tasks
 
 The library was designed to make writing your own tasks easy:
@@ -60,6 +73,13 @@ compile it into mycode.jar, run the CLI app as follows:
 java -cp mycode.jar -jar target/elements-tools-0.1-SNAPSHOT.jar edu.college.MyTask
 ```
 
+Things to know about the Task lifecycle:
+
+- Do NOT write a constructor or do any initialization in a
+  constructor. Instead, override and extend `init()`.
+- Tasks should not retain any state. They may be reused at some point
+  (although they aren't, currently).
+
 # How to Build from Source
 
 Install maven and run this command:
@@ -70,7 +90,7 @@ mvn package
 
 # Contributing
 
-Please contribute!
+TODO
 
 # License
 

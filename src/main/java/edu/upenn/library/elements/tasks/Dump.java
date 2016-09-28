@@ -17,6 +17,11 @@ public class Dump extends Task {
 
   @Override
   public String getDescription() {
+    return "Get raw response from API endpoint (like curl)";
+  }
+
+  @Override
+  public String getHelp() {
     return "Usage: Dump PATH [output file]\n" +
       "\n" +
       "Make an API request at the specified URL path (e.g. '/publication/sources')\n" +
