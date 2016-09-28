@@ -63,6 +63,11 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+            </plugin>
             <!-- this builds an uberjar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

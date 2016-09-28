@@ -3,6 +3,11 @@ package edu.upenn.library.elements.api;
 import com.rometools.rome.feed.synd.SyndEntry;
 import org.jdom2.Element;
 
+/**
+ * This is a convenience encapsulation that ties together an
+ * ATOM entry element and the XML element embedded within it that
+ * describes the main Elements data.
+ */
 public class FeedEntry {
 
   private SyndEntry entry;
