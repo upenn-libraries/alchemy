@@ -17,7 +17,9 @@ public class GetUserId extends Task {
 
   @Override
   public String getHelp() {
-    return null;
+    return "Usage: GetUserId USERNAME\n" +
+      "\n" +
+      "Look up the user id for the given username.\n";
   }
 
   @Override
@@ -33,7 +35,8 @@ public class GetUserId extends Task {
     PreparedStatement ps = c.prepareStatement("select [ID] from [User] where [Username] = ?");
     ps.setString(1, username);
     ResultSet rs = ps.executeQuery();
-    rs.next();
-    System.out.println("ID for " + username + " = " + rs.getInt(1));
+    if(rs.next()) {
+      System.out.println("ID for " + username + " = " + rs.getInt(1));
+    }
   }
 }
