@@ -1,6 +1,4 @@
-package edu.upenn.library.elements.api.resources.category;
-
-import edu.upenn.library.elements.api.Resource;
+package edu.upenn.library.elements.api;
 
 /**
  * Abstract base class for all API resources involving categories

@@ -1,4 +1,4 @@
-package edu.upenn.library.elements.api.resources.category;
+package edu.upenn.library.elements.api;
 
 import java.util.Arrays;
 

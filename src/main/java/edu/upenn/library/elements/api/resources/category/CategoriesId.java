@@ -1,5 +1,8 @@
 package edu.upenn.library.elements.api.resources.category;
 
+import edu.upenn.library.elements.api.Category;
+import edu.upenn.library.elements.api.CategoryResource;
+
 public class CategoriesId extends CategoryResource {
 
   private final String id;

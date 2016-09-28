@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import edu.upenn.library.elements.api.Feed;
 import edu.upenn.library.elements.api.FeedEntry;
-import edu.upenn.library.elements.api.resources.category.Category;
+import edu.upenn.library.elements.api.Category;
 import edu.upenn.library.elements.api.resources.category.CategoriesTypes;
 import edu.upenn.library.elements.csv.CSV;
 import edu.upenn.library.elements.csv.Field;

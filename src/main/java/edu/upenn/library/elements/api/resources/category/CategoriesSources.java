@@ -1,5 +1,8 @@
 package edu.upenn.library.elements.api.resources.category;
 
+import edu.upenn.library.elements.api.Category;
+import edu.upenn.library.elements.api.CategoryResource;
+
 public class CategoriesSources extends CategoryResource {
 
   public CategoriesSources(Category category) {
