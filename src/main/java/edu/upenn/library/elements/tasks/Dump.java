@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 public class Dump extends Task {
 
   private final Logger logger = LoggerFactory.getLogger(Dump.class);
+  private static final int BUF_SIZE = 10240;
 
   @Override
   public String getDescription() {
@@ -51,7 +52,7 @@ public class Dump extends Task {
       out = System.out;
     }
 
-    char[] buf = new char[10240];
+    char[] buf = new char[BUF_SIZE];
     int read = 0;
     while(read != -1) {
       read = isr.read(buf);

@@ -1,8 +1,8 @@
 package edu.upenn.library.elements.api.resources.category;
 
-public class Types extends CategoryResource {
+public class CategoriesTypes extends CategoryResource {
 
-  public Types(Category category) {
+  public CategoriesTypes(Category category) {
     super(category);
   }
 

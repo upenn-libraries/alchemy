@@ -1,10 +1,10 @@
 package edu.upenn.library.elements.api.resources.category;
 
-public class Single extends CategoryResource {
+public class CategoriesIdRelationships extends CategoryResource {
 
   private final String id;
 
-  public Single(Category category, String id) {
+  public CategoriesIdRelationships(Category category, String id) {
     super(category);
     this.id = id;
   }
@@ -14,11 +14,11 @@ public class Single extends CategoryResource {
   }
 
   public String getPath() {
-    return "/" + getCategory().plural + "/" + getId();
+    return "/" + getCategory().plural + "/" + getId() + "/relationships";
   }
 
   public String getAtomEntryElement() {
-    return "object";
+    return "relationship";
   }
 
 }

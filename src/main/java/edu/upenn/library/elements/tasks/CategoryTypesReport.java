@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import edu.upenn.library.elements.api.resources.Feed;
 import edu.upenn.library.elements.api.resources.FeedEntry;
 import edu.upenn.library.elements.api.resources.category.Category;
-import edu.upenn.library.elements.api.resources.category.Types;
+import edu.upenn.library.elements.api.resources.category.CategoriesTypes;
 import edu.upenn.library.elements.csv.CSV;
 import edu.upenn.library.elements.csv.Field;
 import org.apache.commons.csv.CSVFormat;
@@ -68,7 +68,7 @@ public class CategoryTypesReport extends Task {
       return;
     }
 
-    Feed feed = getApi().getFeed(new Types(category));
+    Feed feed = getApi().getFeed(new CategoriesTypes(category));
 
     for(FeedEntry entry : feed.getEntries()) {
       for(Element typeField : entry.getElementsContent().getChildren()) {

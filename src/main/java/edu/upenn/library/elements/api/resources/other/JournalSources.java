@@ -2,16 +2,15 @@ package edu.upenn.library.elements.api.resources.other;
 
 import edu.upenn.library.elements.api.resources.Resource;
 
-public class RelationshipTypes extends Resource {
+public class JournalSources extends Resource {
 
   @Override
   public String getPath() {
-    // note that 4.6 API documentation is wrong, it's not "relationship-types"
-    return "/relationship/types";
+    return "/journal/sources";
   }
 
   @Override
   public String getAtomEntryElement() {
-    return "relationship-type";
+    return "journal-source";
   }
 }
