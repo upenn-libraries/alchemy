@@ -1,6 +1,6 @@
-package edu.upenn.library.elements.api.resources.other;
+package edu.upenn.library.elements.api.resources;
 
-import edu.upenn.library.elements.api.resources.Resource;
+import edu.upenn.library.elements.api.Resource;
 
 public class Groups extends Resource {
 

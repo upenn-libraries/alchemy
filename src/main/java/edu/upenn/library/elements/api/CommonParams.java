@@ -1,4 +1,4 @@
-package edu.upenn.library.elements.api.resources;
+package edu.upenn.library.elements.api;
 
 /**
  * Parameters common to many resource operations. But NOT all.

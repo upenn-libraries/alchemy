@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
-import edu.upenn.library.elements.api.resources.Feed;
-import edu.upenn.library.elements.api.resources.Resource;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;

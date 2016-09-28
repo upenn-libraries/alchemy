@@ -1,4 +1,4 @@
-package edu.upenn.library.elements.api.resources;
+package edu.upenn.library.elements.api;
 
 import java.util.ArrayList;
 import java.util.HashMap;
