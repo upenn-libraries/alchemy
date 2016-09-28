@@ -21,9 +21,10 @@ more information.
 
 # Running the CLI App
 
-The CLI app runs 'tasks', which are simply Java classes that a simple
-framework that facilitates interaction with the Elements API. The app
-ships with several predefined tasks; you can also create your own.
+The CLI app runs 'tasks', which are simply Java classes used by a
+simple framework that facilitates interaction with the Elements
+API. The app ships with several predefined tasks, and you can also
+create your own.
 
 To run a task:
 ```
@@ -43,19 +44,6 @@ To get help:
 
 # shows help for this specific task
 ./elements-tools.sh CategoryTypesReport -h
-```
-
-# Using as a Library
-
-To run tasks from your own code:
-
-```java
-Map<String, List<String>> options = ...
-List<String> args = ...
-
-TaskResolver taskResolver = App.createDefaultTaskResolver();
-TaskRunner taskRunner = new TaskRunner(taskResolver);
-taskRunner.run("CategoryTypesReport", options, args);
 ```
 
 # Writing your own tasks
@@ -80,6 +68,19 @@ Things to know about the Task lifecycle:
 - Tasks should not retain any state. They may be reused at some point
   (although they aren't, currently).
 
+# Using as a Library
+
+To run tasks from your own Java code:
+
+```java
+Map<String, List<String>> options = ...
+List<String> args = ...
+
+TaskResolver taskResolver = App.createDefaultTaskResolver();
+TaskRunner taskRunner = new TaskRunner(taskResolver);
+taskRunner.run("CategoryTypesReport", options, args);
+```
+
 # How to Build from Source
 
 Install maven and run this command:
@@ -87,6 +88,8 @@ Install maven and run this command:
 ```
 mvn package
 ```
+
+This creates a jar in the `target/` directory.
 
 # Contributing
 
