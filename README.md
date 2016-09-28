@@ -1,7 +1,7 @@
 
 # elements-tools
 
-A Java library and command-line interface (CLI) for working with the
+A Java library and command-line interface (CLI) for the
 [Symplectic Elements](http://symplectic.co.uk/products/elements/) API.
 
 This project is a work in progress, and is not affiliated with or
