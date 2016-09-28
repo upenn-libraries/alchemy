@@ -27,7 +27,7 @@ public class Dump extends Task {
     return "Usage: Dump PATH [output file]\n" +
       "\n" +
       "Make an API request at the specified URL path (e.g. '/publication/sources')\n" +
-      "and write to stdout or output file (optional)\n";
+      "and write the raw response to stdout or output file (optional)\n";
   }
 
   @Override

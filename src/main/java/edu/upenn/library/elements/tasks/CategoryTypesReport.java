@@ -30,14 +30,14 @@ public class CategoryTypesReport extends Task {
 
   @Override
   public String getDescription() {
-    return "Generate report of field definitions";
+    return "Generate .CSV report of field definitions";
   }
 
   @Override
   public String getHelp() {
     return "Usage: CategoryTypesReport [category] [output file]\n" +
       "\n" +
-      "Generate report of field definitions for the specified category.\n";
+      "Generate .CSV report of field definitions for the specified category.\n";
   }
 
   @Override

@@ -22,9 +22,9 @@ more information.
 # Running the CLI App
 
 The CLI app runs 'tasks', which are simply Java classes used by a
-simple framework that facilitates interaction with the Elements
-API. The app ships with several predefined tasks, and you can also
-create your own.
+simple framework that facilitates access to the Elements API and the
+reporting database. The app ships with several predefined tasks, and
+you can also create your own.
 
 To run a task:
 ```
