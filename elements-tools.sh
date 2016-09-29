@@ -1,10 +1,11 @@
 #!/bin/bash
 
-jar="elements-tools-0.1-SNAPSHOT.jar"
+jar="elements-tools-0.1.jar"
+jarpath=$jar
 
-if [ -f "target/elements-tools-0.1-SNAPSHOT.jar" ]
+if [ -f "target/$jar" ]
 then
-    jar="target/elements-tools-0.1-SNAPSHOT.jar"
+    jarpath="target/$jar"
 fi
 
-java -jar $jar $@
+java -jar $jarpath $@

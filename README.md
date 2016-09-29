@@ -4,8 +4,10 @@
 A Java library and command-line tool for the
 [Symplectic Elements](http://symplectic.co.uk/products/elements/) API and Reporting Database.
 
-This project is a work in progress, and is not affiliated with or
-supported by Symplectic. Please read the license.
+It's an extensible swiss army knife for working with Elements.
+
+This project is not affiliated with or supported by Symplectic. Please
+read the license.
 
 # Installation and Configuration
 
@@ -13,7 +15,8 @@ This should work on any platform that runs Java (Linux, Windows, Mac). Theoretic
 
 Install Java 1.8 if it isn't already installed.
 
-Download the most recent .zip distribution file. (TODO: create this!)
+Download the most recent distribution file from the "releases" page of
+this repository. Unpack the .zip or .tar.gz file somewhere.
 
 Copy `elements-tools.sample.properties` to `elements-tools.properties`
 and edit it to suit your environment. See the comments in the file for
@@ -34,6 +37,12 @@ java -jar target/elements-tools-0.1-SNAPSHOT.jar CategoryTypesReport publication
 There is a convenience shell script for Linux and Mac:
 ```
 ./elements-tools.sh CategoryTypesReport publications pubtypes.csv
+```
+
+To use a different configuration file:
+
+```
+./elements-tools.sh -c production.properties CategoryTypesReport publications pubtypes.csv
 ```
 
 To get help:
@@ -93,8 +102,5 @@ This creates a jar in the `target/` directory.
 
 # Contributing
 
-TODO
-
-# License
-
-TODO
+This project welcomes contributions, especially of tasks that are
+broadly useful to the Elements userbase community at large.
