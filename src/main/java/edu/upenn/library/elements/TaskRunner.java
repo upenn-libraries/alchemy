@@ -38,6 +38,10 @@ public class TaskRunner {
     }
   }
 
+  public Config getConfig() {
+    return config;
+  }
+
   public void run(String taskName, Map<String, List<String>> options, List<String> args) {
     Task task = null;
     try {

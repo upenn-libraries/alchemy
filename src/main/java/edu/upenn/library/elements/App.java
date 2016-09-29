@@ -13,8 +13,6 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.slf4j.impl.SimpleLogger;
 
 public class App {
@@ -50,18 +48,16 @@ public class App {
     return taskResolver;
   }
 
-  protected Logger logger;
   protected TaskResolver taskResolver = null;
   protected TaskRunner taskRunner = null;
 
   public App(String[] args) {
-    initLogger();
 
     CommandLine commandLine = null;
     try {
       commandLine = parseArgs(args);
     } catch(ParseException e) {
-      logger.error("Problem parsing CLI arguments: " + e.getMessage());
+      System.err.println("Problem parsing CLI arguments: " + e.getMessage());
       System.exit(-1);
     }
     String configPath = commandLine.getOptionValue("c", TaskRunner.CONFIG_FILENAME);
@@ -70,8 +66,10 @@ public class App {
     try {
       this.taskRunner = new TaskRunner(taskResolver, configPath);
     } catch(IOException ioe) {
-      logger.error("Error instantiating TaskRunner: " + ioe.getMessage());
+      System.err.println("Error instantiating TaskRunner: " + ioe.getMessage());
     }
+
+    initLogger(this.taskRunner.getConfig().getProperty(Config.KEY_LOGLEVEL, "info"));
 
     String[] cliArgs = commandLine.getArgs();
     if(cliArgs.length > 0) {
@@ -89,11 +87,10 @@ public class App {
     }
   }
 
-  public void initLogger() {
-    System.setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "debug");
+  public void initLogger(String logLevel) {
+    System.setProperty(SimpleLogger.DEFAULT_LOG_LEVEL_KEY, logLevel);
     System.setProperty(SimpleLogger.SHOW_LOG_NAME_KEY, "false");
     System.setProperty(SimpleLogger.SHOW_THREAD_NAME_KEY, "false");
-    logger = LoggerFactory.getLogger(TaskRunner.class);
   }
 
   public void run(String taskName, CommandLine commandLine) {
