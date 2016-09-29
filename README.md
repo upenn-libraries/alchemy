@@ -6,8 +6,7 @@ A Java library and command-line tool for the
 
 It's an extensible swiss army knife for working with Elements.
 
-This project is not affiliated with or supported by Symplectic. Please
-read the license.
+This project is not affiliated with or supported by Symplectic.
 
 # Installation and Configuration
 
@@ -16,7 +15,7 @@ This should work on any platform that runs Java (Linux, Windows, Mac). Theoretic
 Install Java 1.8 if it isn't already installed.
 
 Download the most recent distribution file from the "releases" page of
-this repository. Unpack the .zip or .tar.gz file somewhere.
+this repository. Unpack the .zip or .tar.gz file.
 
 Copy `elements-tools.sample.properties` to `elements-tools.properties`
 and edit it to suit your environment. See the comments in the file for
@@ -103,4 +102,4 @@ This creates a jar in the `target/` directory.
 # Contributing
 
 This project welcomes contributions, especially of tasks that are
-broadly useful to the Elements userbase community at large.
+broadly useful to the Elements user community at large.
