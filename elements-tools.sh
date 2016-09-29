@@ -8,4 +8,10 @@ then
     jarpath="target/$jar"
 fi
 
-java -jar $jarpath $@
+cmd=java
+if [ -n "$JAVA_HOME" ]
+then
+    cmd=$JAVA_HOME/bin/java
+fi
+
+$cmd -jar $jarpath $@
