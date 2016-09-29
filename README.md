@@ -30,7 +30,7 @@ you can also create your own.
 
 To run a task:
 ```
-java -jar target/elements-tools-0.1-SNAPSHOT.jar CategoryTypesReport publications pubtypes.csv
+java -jar target/elements-tools-0.1.jar CategoryTypesReport publications pubtypes.csv
 ```
 
 There is a convenience shell script for Linux and Mac:
@@ -66,7 +66,7 @@ For example, if you create a class named edu.college.MyTask and
 compile it into mycode.jar, run the CLI app as follows:
 
 ```
-java -cp mycode.jar -jar target/elements-tools-0.1-SNAPSHOT.jar edu.college.MyTask
+java -cp mycode.jar -jar target/elements-tools-0.1.jar edu.college.MyTask
 ```
 
 Things to know about the Task lifecycle:
