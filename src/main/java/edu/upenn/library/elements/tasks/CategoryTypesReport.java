@@ -43,7 +43,7 @@ public class CategoryTypesReport extends Task {
   @Override
   public void execute() throws Exception {
     if(getArgs().size() < 2) {
-      logger.error("You must specify an Elements category and filename argument.");
+      getLogger().error("You must specify an Elements category and filename argument.");
       return;
     }
     String categoryName = getArgs().get(0);

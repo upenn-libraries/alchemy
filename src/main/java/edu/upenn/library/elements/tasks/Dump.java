@@ -6,15 +6,12 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import edu.upenn.library.elements.Task;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Basically curl.
  */
 public class Dump extends Task {
 
-  private final Logger logger = LoggerFactory.getLogger(Dump.class);
   private static final int BUF_SIZE = 10240;
 
   @Override
@@ -33,7 +30,7 @@ public class Dump extends Task {
   @Override
   public void execute() throws Exception {
     if(getArgs().size() < 1) {
-      logger.error("You must specify a url path, and optionally, an output file");
+      getLogger().error("You must specify a url path, and optionally, an output file");
       return;
     }
     String urlPath = getArgs().get(0);

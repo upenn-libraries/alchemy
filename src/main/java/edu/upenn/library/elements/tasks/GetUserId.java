@@ -4,12 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import edu.upenn.library.elements.Task;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class GetUserId extends Task {
-
-  private final Logger logger = LoggerFactory.getLogger(GetUserId.class);
 
   @Override
   public String getDescription() {
@@ -26,7 +22,7 @@ public class GetUserId extends Task {
   @Override
   public void execute() throws Exception {
     if(getArgs().size() < 1) {
-      logger.error("You must specify a username");
+      getLogger().error("You must specify a username");
       return;
     }
 

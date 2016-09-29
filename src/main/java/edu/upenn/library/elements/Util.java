@@ -1,6 +1,7 @@
 package edu.upenn.library.elements;
 
 import java.io.Console;
+import org.jdom2.Element;
 
 public class Util {
 
@@ -23,6 +24,10 @@ public class Util {
       throw new Exception("no console available for reading password");
     }
     return new String(c.readPassword(prompt));
+  }
+
+  public static Element getChildIgnoreNS(Element element, String name) {
+    return element.getChildren().stream().filter(child -> name.equals(child.getName())).findFirst().orElse(null);
   }
 
 }

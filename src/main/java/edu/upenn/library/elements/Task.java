@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.util.List;
 import java.util.Map;
 import edu.upenn.library.elements.api.Api;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Base class for writing your own custom Tasks to interact
@@ -20,6 +22,7 @@ public abstract class Task {
   private List<String> args;
   private Api api;
   private Connection connection;
+  private Logger logger;
 
   public abstract String getDescription();
 
@@ -29,6 +32,13 @@ public abstract class Task {
     this.config = config;
     this.options = options;
     this.args = args;
+  }
+
+  protected Logger getLogger() {
+    if(logger == null) {
+      logger = LoggerFactory.getLogger(this.getClass());
+    }
+    return logger;
   }
 
   protected Api getApi() throws Exception {
