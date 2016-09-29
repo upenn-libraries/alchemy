@@ -1,5 +1,8 @@
 package edu.upenn.library.elements.api.resources;
 
+/**
+ * Resource: /user-feed/users/{proprietary-id}
+ */
 public class UserFeedUsersProprietaryId {
 
   private final String id;

@@ -2,6 +2,9 @@ package edu.upenn.library.elements.api.resources;
 
 import edu.upenn.library.elements.api.Resource;
 
+/**
+ * Resource: /relationships/{id}
+ */
 public class RelationshipsId extends Resource {
 
   private final String id;

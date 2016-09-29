@@ -99,6 +99,12 @@ mvn package
 
 This creates a jar in the `target/` directory.
 
+To see which API resources are covered:
+
+```
+egrep "Resource: .+" src -r -o --no-filename | sort
+```
+
 # Contributing
 
 This project welcomes contributions, especially of tasks that are

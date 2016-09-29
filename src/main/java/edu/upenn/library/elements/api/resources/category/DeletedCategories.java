@@ -4,20 +4,21 @@ import edu.upenn.library.elements.api.Category;
 import edu.upenn.library.elements.api.CategoryResource;
 
 /**
- * Resource: /{cats}/sources
+ * Resource: /deleted/{cats}
  */
-public class CategoriesSources extends CategoryResource {
+public class DeletedCategories extends CategoryResource {
 
-  public CategoriesSources(Category category) {
+  public DeletedCategories(Category category) {
     super(category);
   }
 
+  @Override
   public String getPath() {
-    return "/" + getCategory().singular + "/sources";
+    return "/deleted/" + getCategory().plural;
   }
 
+  @Override
   public String getAtomEntryElement() {
-    return "data-source";
+    return "deleted-object";
   }
-
 }

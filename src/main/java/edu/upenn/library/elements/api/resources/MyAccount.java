@@ -2,6 +2,9 @@ package edu.upenn.library.elements.api.resources;
 
 import edu.upenn.library.elements.api.Resource;
 
+/**
+ * Resource: /my-account
+ */
 public class MyAccount extends Resource {
 
   @Override

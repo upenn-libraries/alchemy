@@ -4,27 +4,24 @@ import edu.upenn.library.elements.api.Category;
 import edu.upenn.library.elements.api.CategoryResource;
 
 /**
- * Resource: /{cats}/{id}
+ * Resource: /deleted/{cats}/{id}
  */
-public class CategoriesId extends CategoryResource {
+public class DeletedCategoriesId extends CategoryResource {
 
   private final String id;
 
-  public CategoriesId(Category category, String id) {
+  public DeletedCategoriesId(Category category, String id) {
     super(category);
     this.id = id;
   }
 
-  public String getId() {
-    return id;
-  }
-
+  @Override
   public String getPath() {
-    return "/" + getCategory().plural + "/" + getId();
+    return "/deleted/" + getCategory().plural + "/" + id;
   }
 
+  @Override
   public String getAtomEntryElement() {
-    return "object";
+    return "deleted-object";
   }
-
 }

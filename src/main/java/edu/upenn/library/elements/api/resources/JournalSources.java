@@ -2,6 +2,9 @@ package edu.upenn.library.elements.api.resources;
 
 import edu.upenn.library.elements.api.Resource;
 
+/**
+ * Resource: /journal/sources
+ */
 public class JournalSources extends Resource {
 
   @Override

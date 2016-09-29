@@ -2,6 +2,9 @@ package edu.upenn.library.elements.api.resources;
 
 import edu.upenn.library.elements.api.Resource;
 
+/**
+ * Resource: /journals/{issn}
+ */
 public class JournalIssn extends Resource {
 
   private final String issn;
