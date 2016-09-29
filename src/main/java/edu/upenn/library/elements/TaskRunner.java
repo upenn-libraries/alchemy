@@ -22,20 +22,9 @@ public class TaskRunner {
   private TaskResolver taskResolver;
   private Config config = new Config();
 
-  public TaskRunner(TaskResolver taskResolver) throws IOException {
-    this(taskResolver, CONFIG_FILENAME);
-  }
-
-  public TaskRunner(TaskResolver taskResolver, String configPath) throws IOException {
+  public TaskRunner(TaskResolver taskResolver, Config config) throws IOException {
     this.taskResolver = taskResolver;
-    initConfig(configPath);
-  }
-
-  protected void initConfig(String filename) throws IOException {
-    File configFile = new File(filename);
-    if(configFile.exists()) {
-      config.load(new FileReader(configFile));
-    }
+    this.config = config;
   }
 
   public Config getConfig() {

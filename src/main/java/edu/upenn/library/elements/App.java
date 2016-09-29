@@ -1,5 +1,7 @@
 package edu.upenn.library.elements;
 
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.Map;
 import edu.upenn.library.elements.tasks.CategoryTypesReport;
 import edu.upenn.library.elements.tasks.Dump;
 import edu.upenn.library.elements.tasks.GetUserId;
+import edu.upenn.library.elements.tasks.GroupsReport;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -45,6 +48,7 @@ public class App {
     taskResolver.addTask(new Dump());
     taskResolver.addTask(new CategoryTypesReport());
     taskResolver.addTask(new GetUserId());
+    taskResolver.addTask(new GroupsReport());
     return taskResolver;
   }
 
@@ -62,14 +66,25 @@ public class App {
     }
     String configPath = commandLine.getOptionValue("c", TaskRunner.CONFIG_FILENAME);
 
+    Config config = new Config();
+    File configFile = new File(configPath);
+    if(configFile.exists()) {
+      try {
+        config.load(new FileReader(configFile));
+      } catch(Exception e) {
+        System.err.println("Couldn't load config file " + configPath + ": " + e.getMessage());
+        System.exit(-1);
+      }
+    }
+
+    initLogger(config.getProperty(Config.KEY_LOGLEVEL, "info"));
+
     this.taskResolver = createDefaultTaskResolver();
     try {
-      this.taskRunner = new TaskRunner(taskResolver, configPath);
+      this.taskRunner = new TaskRunner(taskResolver, config);
     } catch(IOException ioe) {
       System.err.println("Error instantiating TaskRunner: " + ioe.getMessage());
     }
-
-    initLogger(this.taskRunner.getConfig().getProperty(Config.KEY_LOGLEVEL, "info"));
 
     String[] cliArgs = commandLine.getArgs();
     if(cliArgs.length > 0) {
