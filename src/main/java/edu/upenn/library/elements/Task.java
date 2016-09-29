@@ -2,10 +2,8 @@ package edu.upenn.library.elements;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-import edu.upenn.library.elements.Config;
 import edu.upenn.library.elements.api.Api;
 
 /**
@@ -35,22 +33,31 @@ public abstract class Task {
 
   protected Api getApi() throws Exception {
     if(this.api == null) {
+      String password = config.getProperty(Config.KEY_API_PASSWORD);
+      if(config.promptForApiPassword()) {
+        password = Util.readPassword("API password: ");
+      }
+
       String url = config.getProperty(Config.KEY_API_URL);
-      Boolean ignoreCertMismatch = new Boolean(config.getProperty(Config.KEY_API_IGNORE_CERT_MISMATCH, "false"));
       this.api = new Api(url,
         config.getProperty(Config.KEY_API_USERNAME),
-        config.getProperty(Config.KEY_API_PASSWORD),
-        ignoreCertMismatch);
+        password,
+        config.ignoreCertMismatch());
     }
     return api;
   }
 
-  protected Connection getDatabaseConnection() throws SQLException {
+  protected Connection getDatabaseConnection() throws Exception {
     if(connection == null) {
+      String password = config.getProperty(Config.KEY_DATABASE_REPORTING_PASSWORD);
+      if(config.promptForDatabasePassword()) {
+        password = Util.readPassword("Database password: ");
+      }
+
       connection = DriverManager.getConnection(
         config.getProperty(Config.KEY_DATABASE_REPORTING_URL),
         config.getProperty(Config.KEY_DATABASE_REPORTING_USERNAME),
-        config.getProperty(Config.KEY_DATABASE_REPORTING_PASSWORD));
+        password);
     }
     return connection;
   }

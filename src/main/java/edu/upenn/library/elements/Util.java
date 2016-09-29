@@ -1,5 +1,7 @@
 package edu.upenn.library.elements;
 
+import java.io.Console;
+
 public class Util {
 
   /**
@@ -13,6 +15,14 @@ public class Util {
       newO[i] = value;
     }
     return newO;
+  }
+
+  public static String readPassword(String prompt) throws Exception {
+    Console c = System.console();
+    if (c == null) {
+      throw new Exception("no console available for reading password");
+    }
+    return new String(c.readPassword(prompt));
   }
 
 }
