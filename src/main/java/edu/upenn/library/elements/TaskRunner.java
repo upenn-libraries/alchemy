@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TaskRunner {
 
-  public static final String CONFIG_FILENAME = "elements-tools.properties";
+  public static final String CONFIG_FILENAME = "alchemy.properties";
 
   private final Logger logger = LoggerFactory.getLogger(TaskRunner.class);
 

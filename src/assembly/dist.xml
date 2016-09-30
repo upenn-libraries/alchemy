@@ -13,8 +13,8 @@
             <includes>
                 <include>README*</include>
                 <include>LICENSE*</include>
-                <include>elements-tools.sample.properties</include>
-                <include>elements-tools.sh</include>
+                <include>alchemy.sample.properties</include>
+                <include>alchemy.sh</include>
             </includes>
         </fileSet>
         <fileSet>

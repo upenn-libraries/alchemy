@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# script to run elements-tools CLI, from either repo project directory
+# script to run alchemy CLI, from either repo project directory
 # in which the app was built, or the distributed .zip/.tar.gz package
 
 lib="lib"

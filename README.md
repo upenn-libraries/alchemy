@@ -1,5 +1,5 @@
 
-# elements-tools
+# alchemy
 
 A Java library and command-line tool for the
 [Symplectic Elements](http://symplectic.co.uk/products/elements/) API and Reporting Database.
@@ -17,7 +17,7 @@ Install Java 1.8 if it isn't already installed.
 Download the most recent distribution file from the "releases" page of
 this repository. Unpack the .zip or .tar.gz file.
 
-Copy `elements-tools.sample.properties` to `elements-tools.properties`
+Copy `alchemy.sample.properties` to `alchemy.properties`
 and edit it to suit your environment. See the comments in the file for
 more information.
 
@@ -30,28 +30,28 @@ you can also create your own.
 
 To run a task:
 ```
-java -jar target/elements-tools-0.1.jar CategoryTypesReport publications pubtypes.csv
+java -jar target/alchemy-0.1.jar CategoryTypesReport publications pubtypes.csv
 ```
 
 There is a convenience shell script for Linux and Mac:
 ```
-./elements-tools.sh CategoryTypesReport publications pubtypes.csv
+./alchemy.sh CategoryTypesReport publications pubtypes.csv
 ```
 
 To use a different configuration file:
 
 ```
-./elements-tools.sh -c production.properties CategoryTypesReport publications pubtypes.csv
+./alchemy.sh -c production.properties CategoryTypesReport publications pubtypes.csv
 ```
 
 To get help:
 
 ```
 # shows a list of available tasks
-./elements-tools.sh -h
+./alchemy.sh -h
 
 # shows help for this specific task
-./elements-tools.sh CategoryTypesReport -h
+./alchemy.sh CategoryTypesReport -h
 ```
 
 # Writing your own tasks
@@ -66,7 +66,7 @@ For example, if you create a class named edu.college.MyTask and
 compile it into mycode.jar, run the CLI app as follows:
 
 ```
-java -cp mycode.jar -jar target/elements-tools-0.1.jar edu.college.MyTask
+java -cp mycode.jar -jar target/alchemy-0.1.jar edu.college.MyTask
 ```
 
 Things to know about the Task lifecycle:
