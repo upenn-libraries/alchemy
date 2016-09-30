@@ -1,17 +1,26 @@
 #!/bin/bash
+#
+# script to run elements-tools CLI, from either repo project directory
+# in which the app was built, or the distributed .zip/.tar.gz package
 
-jar="elements-tools-0.1.jar"
-jarpath=$jar
+lib="lib"
 
-if [ -f "target/$jar" ]
+if [ -d "target" ]
 then
-    jarpath="target/$jar"
+    lib="./target"
+    if compgen -G "$lib/*-all.jar" > /dev/null; then
+        uberjar="$lib/*-all.jar"
+    fi
 fi
 
-cmd=java
+cmd="java"
 if [ -n "$JAVA_HOME" ]
 then
     cmd=$JAVA_HOME/bin/java
 fi
 
-$cmd -jar $jarpath $@
+if [ -n "$uberjar" ]; then
+    $cmd -jar $uberjar $@
+else
+    $cmd -classpath "$lib/*" edu.upenn.library.elements.App $@
+fi

@@ -19,12 +19,13 @@
         </fileSet>
         <fileSet>
             <directory>${project.build.directory}</directory>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>/lib</outputDirectory>
             <includes>
                 <include>*.jar</include>
             </includes>
             <excludes>
                 <exclude>original-*</exclude>
+                <exclude>*-all.jar</exclude>
             </excludes>
         </fileSet>
         <fileSet>
@@ -32,4 +33,11 @@
             <outputDirectory>docs</outputDirectory>
         </fileSet>
     </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>/lib</outputDirectory>
+            <useProjectArtifact>true</useProjectArtifact>
+            <scope>runtime</scope>
+        </dependencySet>
+    </dependencySets>
 </assembly>
