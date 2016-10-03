@@ -18,7 +18,10 @@ Elements. It aspires to provide:
 - A way to do application configuration management (export system state to files)
 - A way to do testing and verification
 
-This is currently 'alpha' code. Expect things to change.
+# Status
+
+This is early 'alpha' code. What exists should mostly work. Holes need
+to be filled in. Expect things to change.
 
 # Installation and Configuration
 
@@ -82,10 +85,21 @@ java -cp "lib/*" edu.upenn.library.elements.App edu.college.MyTask
 ./alchemy edu.college.MyTask
 ```
 
+Making API calls in Tasks looks like this:
+
+```java
+Resource apiResource = new Categories(Category.PUBLICATION);
+apiResource.setParam("groups", "12");
+Feed feed = getApi().getFeed(apiResource);
+for(FeedEntry entry : feed.getEntries()) {
+    // ...
+}
+```
+
 Things to know about the Task lifecycle:
 
-- Do NOT write a constructor or do any initialization in a
-  constructor. Instead, override and extend `init()`.
+- Do NOT do any initialization in a constructor. Instead, 
+  override and extend `init()`.
 - Tasks should not retain any state. They may be reused at some point
   (although they aren't, currently).
 
