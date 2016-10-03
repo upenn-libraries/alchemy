@@ -23,6 +23,8 @@ public class App {
   public static CommandLine parseArgs(String[] args) throws ParseException {
     Options options = new Options();
     options.addOption("c", true, "config (.properties) file");
+    options.addOption("e", true, "API environment (default is 'dev')");
+    options.addOption("d", true, "database name (default is 'reporting')");
     options.addOption("h", false, "show help");
 
     CommandLineParser parser = new DefaultParser();

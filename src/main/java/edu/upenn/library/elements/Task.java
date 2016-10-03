@@ -41,32 +41,70 @@ public abstract class Task {
     return logger;
   }
 
+  /**
+   * @return the API environment specified in "e" option; if none, return "dev" by default
+   */
+  protected String getApiEnvironment() {
+    List<String> e = getOptions().get("e");
+    if(e != null && e.size() > 0) {
+      return e.get(0);
+    }
+    return "dev";
+  }
+
+  /**
+   * @return an API object
+   * @throws Exception
+   */
   protected Api getApi() throws Exception {
+    return getApi(getApiEnvironment());
+  }
+
+  /**
+   * @return an API object for the given name
+   * @throws Exception
+   */
+  protected Api getApi(String apiName) throws Exception {
     if(this.api == null) {
-      String password = config.getProperty(Config.KEY_API_PASSWORD);
-      if(config.promptForApiPassword()) {
+      String password = config.getPropertyForApi(Config.KEY_API_PASSWORD, apiName);
+      if(config.promptForApiPassword(apiName)) {
         password = Util.readPassword("API password: ");
       }
 
-      String url = config.getProperty(Config.KEY_API_URL);
+      String url = config.getPropertyForApi(Config.KEY_API_URL, apiName);
       this.api = new Api(url,
-        config.getProperty(Config.KEY_API_USERNAME),
+        config.getPropertyForApi(Config.KEY_API_USERNAME, apiName),
         password,
-        config.ignoreCertMismatch());
+        config.ignoreCertMismatch(apiName));
     }
     return api;
   }
 
+  /**
+   * @return the database name specified in "d" option; if none, return "reporting" by default
+   */
+  protected String getDatabase() {
+    List<String> e = getOptions().get("d");
+    if(e != null && e.size() > 0) {
+      return e.get(0);
+    }
+    return "reporting";
+  }
+
   protected Connection getDatabaseConnection() throws Exception {
+    return getDatabaseConnection(getDatabase());
+  }
+
+  protected Connection getDatabaseConnection(String databaseName) throws Exception {
     if(connection == null) {
-      String password = config.getProperty(Config.KEY_DATABASE_REPORTING_PASSWORD);
-      if(config.promptForDatabasePassword()) {
+      String password = config.getPropertyForDatabase(Config.KEY_DATABASE_PASSWORD, databaseName);
+      if(config.promptForDatabasePassword(databaseName)) {
         password = Util.readPassword("Database password: ");
       }
 
       connection = DriverManager.getConnection(
-        config.getProperty(Config.KEY_DATABASE_REPORTING_URL),
-        config.getProperty(Config.KEY_DATABASE_REPORTING_USERNAME),
+        config.getPropertyForDatabase(Config.KEY_DATABASE_URL, databaseName),
+        config.getPropertyForDatabase(Config.KEY_DATABASE_USERNAME, databaseName),
         password);
     }
     return connection;
