@@ -8,13 +8,15 @@ This project is not affiliated with or supported by Symplectic.
 
 # Features and Uses
 
-This is meant to be an extensible swiss army knife for working with
-Elements.
+alchemy is meant to be an extensible swiss army knife for working with
+Elements. It aspires to provide:
 
-- Platform for scripts and sundry, vs writing ad hoc scripts
-- Collection of tasks broadly useful to the Elements user base
-- System configuration management (export system state to files)
-- Testing and verification
+- A clean platform for scripts and sundry (vs writing ad hoc scripts)
+  that eliminates a lot of boilerplate
+- A collection of pre-packaged, ready-to-run tasks broadly useful to
+  Elements users
+- A way to do system configuration management (export system state to files)
+- A way to do testing and verification
 
 This is currently 'alpha' code. Expect things to change.
 
