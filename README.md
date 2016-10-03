@@ -42,7 +42,7 @@ you can also create your own.
 
 To run a task:
 ```
-java -jar target/alchemy-0.1.jar CategoryTypesReport publications pubtypes.csv
+java -cp "lib/*" edu.upenn.library.elements.App CategoryTypesReport publications pubtypes.csv
 ```
 
 There is a convenience shell script for Linux and Mac:
@@ -74,11 +74,12 @@ The library was designed to make writing your own tasks easy:
 - make sure it's in the classpath when running the CLI
 - use the full name of the class to refer to the task 
 
-For example, if you create a class named edu.college.MyTask and
-compile it into mycode.jar, run the CLI app as follows:
+For example, you might create a class named edu.college.MyTask,
+compile it into mycode.jar, copy it into the `lib/` directory, then
+run the CLI app as follows:
 
 ```
-java -cp mycode.jar -jar target/alchemy-0.1.jar edu.college.MyTask
+java -cp "lib/*" edu.upenn.library.elements.App edu.college.MyTask
 ```
 
 Things to know about the Task lifecycle:
