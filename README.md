@@ -4,9 +4,19 @@
 A Java library and command-line tool for the
 [Symplectic Elements](http://symplectic.co.uk/products/elements/) API and Reporting Database.
 
-It's an extensible swiss army knife for working with Elements.
-
 This project is not affiliated with or supported by Symplectic.
+
+# Features and Uses
+
+This is meant to be an extensible swiss army knife for working with
+Elements.
+
+- Platform for scripts and sundry, vs writing ad hoc scripts
+- Collection of tasks broadly useful to the Elements user base
+- System configuration management (export system state to files)
+- Testing and verification
+
+This is currently 'alpha' code. Expect things to change.
 
 # Installation and Configuration
 
@@ -47,7 +57,7 @@ To use a different configuration file:
 To get help:
 
 ```
-# shows a list of available tasks
+# shows a list of program arguments and available tasks
 ./alchemy.sh -h
 
 # shows help for this specific task
