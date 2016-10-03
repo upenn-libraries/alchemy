@@ -16,7 +16,10 @@ public class GetUserId extends Task {
   public String getHelp() {
     return "Usage: GetUserId USERNAME\n" +
       "\n" +
-      "Look up the user id for the given username.\n";
+      "Look up the user id for the given username.\n" +
+      "\n" +
+      "This is a silly task, it exists mostly to demonstrate how\n" +
+      "to do database access.";
   }
 
   @Override
