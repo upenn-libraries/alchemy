@@ -40,30 +40,26 @@ simple framework that facilitates access to the Elements API and the
 reporting database. The app ships with several predefined tasks, and
 you can also create your own.
 
-To run a task:
+Examples of how to run the CLI:
+
 ```
+# run using Java
 java -cp "lib/*" edu.upenn.library.elements.App CategoryTypesReport publications pubtypes.csv
-```
 
-There is a convenience shell script for Linux and Mac:
-```
+# use the convenience script for Linux or Mac
 ./alchemy.sh CategoryTypesReport publications pubtypes.csv
-```
 
-To use a different configuration file:
-
-```
-./alchemy.sh -c production.properties CategoryTypesReport publications pubtypes.csv
-```
-
-To get help:
-
-```
 # shows a list of program arguments and available tasks
 ./alchemy.sh -h
 
-# shows help for this specific task
+# shows help for a specific task
 ./alchemy.sh CategoryTypesReport -h
+
+# use different config file
+./alchemy.sh -c production.properties CategoryTypesReport publications pubtypes.csv
+
+# run the task using the 'prod' api (as defined in alchemy.properties) instead of default 'dev'
+./alchemy.sh -e prod CategoryTypesReport publications pubtypes.csv
 ```
 
 # Writing your own tasks
