@@ -97,9 +97,11 @@ public class App {
       System.out.println();
       System.out.println("Available tasks (run with -h to get help for a specific task):");
       System.out.println();
-      for (Task task : taskResolver.getTasks()) {
+      taskResolver.getTasks().stream()
+        .sorted((a,b) -> a.getClass().getSimpleName().compareTo(b.getClass().getSimpleName()))
+        .forEach(task -> {
         System.out.println("  " + task.getClass().getSimpleName() + " - " + task.getDescription());
-      }
+      });
       System.out.println();
     }
   }
