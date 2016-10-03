@@ -13,8 +13,8 @@ Elements. It aspires to provide:
 
 - A collection of pre-packaged, ready-to-run tasks broadly useful to
   Elements users
-- A simple platform for writing your own scripts and sundry (vs ad hoc
-  scripts), eliminating a lot of boilerplate
+- A simple unified platform for scripts and sundry (vs scattered ad
+  hoc scripts), eliminating a lot of boilerplate
 - A way to do application configuration management (export system state to files)
 - A way to do testing and verification
 
@@ -64,18 +64,22 @@ java -cp "lib/*" edu.upenn.library.elements.App CategoryTypesReport publications
 
 # Writing your own tasks
 
-The library was designed to make writing your own tasks easy:
+Steps:
 
 - create a subclass of Task
 - make sure it's in the classpath when running the CLI
 - use the full name of the class to refer to the task 
 
 For example, you might create a class named edu.college.MyTask,
-compile it into mycode.jar, copy it into the `lib/` directory, then
-run the CLI app as follows:
+compile it into mycode.jar, copy it into the `lib/` directory of
+alchemy, then run the CLI app as follows:
 
 ```
+# java invocation
 java -cp "lib/*" edu.upenn.library.elements.App edu.college.MyTask
+
+# or, using the script
+./alchemy edu.college.MyTask
 ```
 
 Things to know about the Task lifecycle:
