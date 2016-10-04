@@ -14,7 +14,7 @@ Elements. It aspires to provide:
 - A collection of pre-packaged, ready-to-run tasks broadly useful to
   Elements users
 - A simple unified platform for scripts and sundry (vs scattered ad
-  hoc scripts), eliminating a lot of boilerplate
+  hoc scripts), reducing boilerplate
 - A way to do application configuration management (export system state to files)
 - A way to do testing and verification
 
@@ -40,7 +40,7 @@ more information.
 
 The CLI app runs 'tasks', which are simply Java classes used by a
 simple framework that facilitates access to the Elements API and the
-reporting database. The app ships with several predefined tasks, and
+reporting database. The app ships with predefined tasks, and
 you can also create your own.
 
 Examples of how to run the CLI:
