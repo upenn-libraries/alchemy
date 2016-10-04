@@ -1,11 +1,16 @@
 package edu.upenn.library.elements.tasks;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.Arrays;
 import edu.upenn.library.elements.Task;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.jdom2.Document;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 /**
  * Basically curl.
@@ -16,7 +21,7 @@ public class Dump extends Task {
 
   @Override
   public String getDescription() {
-    return "Get raw response from API endpoint (like curl)";
+    return "Pretty-print raw XML response from API endpoint (like curl)";
   }
 
   @Override
@@ -24,7 +29,7 @@ public class Dump extends Task {
     return "Usage: Dump PATH [output file]\n" +
       "\n" +
       "Make an API request at the specified URL path (e.g. '/publication/sources')\n" +
-      "and write the raw response to stdout or output file (optional)\n";
+      "and pretty-print the raw response to stdout or output file (optional)\n";
   }
 
   @Override
@@ -50,14 +55,12 @@ public class Dump extends Task {
       out = System.out;
     }
 
-    char[] buf = new char[BUF_SIZE];
-    int read = 0;
-    while(read != -1) {
-      read = isr.read(buf);
-      if(read != -1) {
-        out.print(Arrays.copyOfRange(buf, 0, read));
-      }
-    }
+    SAXBuilder sax = new SAXBuilder();
+    Document doc = sax.build(isr);
+
+    XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+    outputter.output(doc, out);
+
     isr.close();
     out.flush();
   }
