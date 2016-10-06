@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import edu.upenn.library.elements.tasks.CategoryTypesReport;
 import edu.upenn.library.elements.tasks.Dump;
+import edu.upenn.library.elements.tasks.GetCVStoredProcedures;
+import edu.upenn.library.elements.tasks.GetReportAssets;
 import edu.upenn.library.elements.tasks.GetUserId;
 import edu.upenn.library.elements.tasks.GroupsReport;
 import org.apache.commons.cli.CommandLine;
@@ -49,6 +51,8 @@ public class App {
     TaskResolver taskResolver = new TaskResolver();
     taskResolver.addTask(new Dump());
     taskResolver.addTask(new CategoryTypesReport());
+    taskResolver.addTask(new GetCVStoredProcedures());
+    taskResolver.addTask(new GetReportAssets());
     taskResolver.addTask(new GetUserId());
     taskResolver.addTask(new GroupsReport());
     return taskResolver;

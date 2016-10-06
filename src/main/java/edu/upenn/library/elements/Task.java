@@ -114,6 +114,21 @@ public abstract class Task {
     return config;
   }
 
+  /**
+   * Looks up value for the given key, prefixed by "alchemy.TASK_NAME", from
+   * the properties config file
+   * @param key
+   * @param defaultValue
+   * @return
+   */
+  protected String getTaskConfigKey(String key, String defaultValue) {
+    return getConfig().getProperty("alchemy." + getClass().getSimpleName() + "." + key, defaultValue);
+  }
+
+  protected String getTaskConfigKey(String key) {
+    return getTaskConfigKey(key, null);
+  }
+
   protected Map<String, List<String>> getOptions() {
     return options;
   }
