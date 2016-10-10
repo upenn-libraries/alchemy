@@ -18,6 +18,7 @@ import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
@@ -177,6 +178,22 @@ public class Api {
     return constructFeed(resource, response);
   }
 
+  public Feed patchDocument(Resource resource, XMLDocument document) throws Exception {
+    String url = constructURL(resource);
+
+    logger.debug("Making PATCH request: " + url);
+
+    String payload = document.toString();
+
+    CloseableHttpResponse response = doPatch(url, CONTENT_TYPE_TEXT_XML, payload);
+
+    if(!String.valueOf(response.getStatusLine().getStatusCode()).startsWith("2")) {
+      throw new Exception("Error making HTTP request: " + response.getStatusLine().toString());
+    }
+
+    return constructFeed(resource, response);
+  }
+
   public void delete(Resource resource) throws Exception {
     String url = constructURL(resource);
 
@@ -201,6 +218,14 @@ public class Api {
     HttpEntity entity = new ByteArrayEntity(payload.getBytes("UTF-8"));
     httpPut.setEntity(entity);
     return httpClient.execute(httpPut);
+  }
+
+  public CloseableHttpResponse doPatch(String url, String contentType, String payload) throws IOException {
+    HttpPatch httpPatch = new HttpPatch(url);
+    httpPatch.setHeader(HttpHeaders.CONTENT_TYPE, contentType);
+    HttpEntity entity = new ByteArrayEntity(payload.getBytes("UTF-8"));
+    httpPatch.setEntity(entity);
+    return httpClient.execute(httpPatch);
   }
 
   public CloseableHttpResponse doPost(String url, String contentType, String payload) throws IOException {

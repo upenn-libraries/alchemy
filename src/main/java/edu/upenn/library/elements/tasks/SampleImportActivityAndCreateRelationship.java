@@ -9,6 +9,7 @@ import edu.upenn.library.elements.api.resources.Relationships;
 import edu.upenn.library.elements.api.resources.category.CategoriesRecordsDataSourceProprietaryId;
 import edu.upenn.library.elements.api.xml.v49.ImportRecord;
 import edu.upenn.library.elements.api.xml.v49.ImportRelationship;
+import edu.upenn.library.elements.api.xml.v49.UpdateRecord;
 import org.jdom2.Element;
 
 /**
@@ -51,10 +52,26 @@ public class SampleImportActivityAndCreateRelationship extends Task {
     CategoriesRecordsDataSourceProprietaryId resource =
       new CategoriesRecordsDataSourceProprietaryId(Category.ACTIVITY, source, proprietaryId);
 
-    Feed feed = getApi().putDocument(resource, record);
+    Feed feedFromPut = getApi().putDocument(resource, record);
 
     System.out.println("Record created with these fields: ");
-    for(FeedEntry feedEntry : feed.getEntries()) {
+    for(FeedEntry feedEntry : feedFromPut.getEntries()) {
+      for(Element resultRecord : feedEntry.getElementsContent().getChild("records", XML.apiNs).getChildren()) {
+        for(Element field : resultRecord.getChild("native", XML.apiNs).getChildren()) {
+          System.out.println(field.getAttribute("name").getValue() + "=" + field.getValue());
+        }
+      }
+    }
+
+    // use PATCH to update fields selectively
+    UpdateRecord updateRecord = new UpdateRecord();
+    updateRecord.addTextField(UpdateRecord.Operation.Set, "title", "changed prize");
+
+    Feed feedfromPatch = getApi().patchDocument(resource, updateRecord);
+
+    Feed feedFromGet = getApi().getFeed(resource);
+    System.out.println("Record after patch: ");
+    for(FeedEntry feedEntry : feedFromGet.getEntries()) {
       for(Element resultRecord : feedEntry.getElementsContent().getChild("records", XML.apiNs).getChildren()) {
         for(Element field : resultRecord.getChild("native", XML.apiNs).getChildren()) {
           System.out.println(field.getAttribute("name").getValue() + "=" + field.getValue());
