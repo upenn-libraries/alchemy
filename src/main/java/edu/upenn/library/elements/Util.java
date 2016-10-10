@@ -26,14 +26,4 @@ public class Util {
     return new String(c.readPassword(prompt));
   }
 
-  /**
-   * Returns the child element of the passed-in element, disregarding namespace.
-   * @param element
-   * @param name
-   * @return
-   */
-  public static Element getChildIgnoreNS(Element element, String name) {
-    return element.getChildren().stream().filter(child -> name.equals(child.getName())).findFirst().orElse(null);
-  }
-
 }

@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import edu.upenn.library.elements.Task;
-import edu.upenn.library.elements.Util;
 import edu.upenn.library.elements.api.Feed;
 import edu.upenn.library.elements.api.FeedEntry;
+import edu.upenn.library.elements.api.XML;
 import edu.upenn.library.elements.api.resources.Groups;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -38,10 +38,10 @@ public class GroupsReport extends Task {
 
     Node node = new Node();
 
-    node.name = Util.getChildIgnoreNS(element, "name").getValue();
+    node.name = element.getChild("name", XML.apiNs).getValue();
     node.element = element;
 
-    Element childrenElement = Util.getChildIgnoreNS(element, "children");
+    Element childrenElement = element.getChild("children", XML.apiNs);
     if(childrenElement != null) {
       childrenElement.getChildren().forEach(child -> {
         Element childNode = idsToElements.get(child.getAttribute("id").getValue());
@@ -87,7 +87,7 @@ public class GroupsReport extends Task {
     for(FeedEntry entry : feed.getEntries()) {
       Element group = entry.getElementsContent();
       idsToElements.put(group.getAttribute("id").getValue(), group);
-      if(Util.getChildIgnoreNS(group, "parents") == null) {
+      if(group.getChild("parents", XML.apiNs) == null) {
         root = group;
       }
     }
