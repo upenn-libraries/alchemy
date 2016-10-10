@@ -1,7 +1,6 @@
 package edu.upenn.library.elements;
 
 import java.io.Console;
-import org.jdom2.Element;
 
 public class Util {
 

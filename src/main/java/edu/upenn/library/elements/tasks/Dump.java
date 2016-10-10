@@ -1,10 +1,8 @@
 package edu.upenn.library.elements.tasks;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.Arrays;
 import edu.upenn.library.elements.Task;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.jdom2.Document;
