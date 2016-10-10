@@ -187,7 +187,7 @@ public class Api {
     if(!String.valueOf(response.getStatusLine().getStatusCode()).startsWith("2")) {
       throw new Exception("Error making HTTP request: " + response.getStatusLine().toString());
     }
-    // DELETE requests never return anything in this API.
+    // DELETE requests never return anything in Elements API.
   }
 
   public CloseableHttpResponse doGet(String url) throws IOException {

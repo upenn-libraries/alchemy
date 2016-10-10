@@ -74,7 +74,7 @@ Steps:
 - use the full name of the class to refer to the task 
 
 For example, you might create a class named edu.college.MyTask,
-compile it into mycode.jar, copy it into the `lib/` directory of
+compile it into mycode.jar, copy that into the `lib/` directory of
 alchemy, then run the CLI app as follows:
 
 ```
@@ -116,9 +116,9 @@ TaskRunner taskRunner = new TaskRunner(taskResolver);
 taskRunner.run("CategoryTypesReport", options, args);
 ```
 
-# How to Build from Source
+# Development Notes
 
-Install maven and run this command:
+To build from source, install maven and run this command:
 
 ```
 mvn package
@@ -126,7 +126,9 @@ mvn package
 
 This creates a jar in the `target/` directory.
 
-To see which API resources are covered:
+Not all API resources are implemented yet. To see which ones are, 
+run this command. The formats correspond to the table starting on p.69 
+of the **Symplectic Elements 4.6 - API Technical Guide**.
 
 ```
 egrep "Resource: .+" src -r -o --no-filename | sort
