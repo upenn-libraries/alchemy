@@ -6,6 +6,8 @@ import org.jdom2.Element;
 import org.jdom2.Text;
 
 /**
+ * Using this document for PATCH requests isn't covered in the API Technical Guide.
+ * See this page on the Symplectic support site:
  * https://support.symplectic.co.uk/support/solutions/articles/6000050094-how-to-use-the-patch-record-api-operation
  */
 public class UpdateRecord extends XMLDocument {

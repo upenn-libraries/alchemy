@@ -134,6 +134,14 @@ of the **Symplectic Elements 4.6 - API Technical Guide**.
 egrep "Resource: .+" src -r -o --no-filename | sort
 ```
 
+The guiding principle for how API calls and XML documents are modeled
+in Java is convenience, rather than enforcement. For example, there is
+no data type for a category identifier; you can use any string, e.g.
+"23" or "source-wos,pid-WOS:000084595500286", which may or may not be
+valid to the Elements API. Similarly, XML document objects help you
+easily construct XML trees, but tend not to throw errors or prevent
+you from constructing invalid ones.
+
 # Contributing
 
 This project welcomes contributions, especially of tasks that are
