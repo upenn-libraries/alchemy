@@ -89,7 +89,7 @@ Making API calls in Tasks looks like this:
 
 ```java
 Resource apiResource = new Categories(Category.PUBLICATION);
-apiResource.setParam("groups", "12");
+apiResource.setParam(Categories.PARAM_GROUPS, "12");
 Feed feed = getApi().getFeed(apiResource);
 for(FeedEntry entry : feed.getEntries()) {
     // ...

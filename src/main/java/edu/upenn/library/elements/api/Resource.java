@@ -11,6 +11,12 @@ import java.util.Map;
  */
 public abstract class Resource {
 
+  // parameters common to most resources (though not all)
+  public static final Param PARAM_IDS = new Param("ids");
+  public static final Param PARAM_PAGE = new Param("page");
+  public static final Param PARAM_PER_PAGE = new Param("per-page");
+  public static final Param PARAM_DETAIL = new Param("detail");
+
   private Map<String, List<String>> params = new HashMap<String, List<String>>();
 
   /**
@@ -27,7 +33,7 @@ public abstract class Resource {
    */
   public abstract String getAtomEntryElement();
 
-  public void setParam(CommonParams param, String value) {
+  public void setParam(Param param, String value) {
     setParam(param.getParamForUrl(), value);
   }
 
