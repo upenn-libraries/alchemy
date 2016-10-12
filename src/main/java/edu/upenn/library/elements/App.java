@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import edu.upenn.library.elements.tasks.CategoryTypesReport;
 import edu.upenn.library.elements.tasks.Dump;
 import edu.upenn.library.elements.tasks.GetCVStoredProcedures;
@@ -16,6 +17,7 @@ import edu.upenn.library.elements.tasks.SampleImportActivityAndCreateRelationshi
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
@@ -23,16 +25,7 @@ import org.slf4j.impl.SimpleLogger;
 
 public class App {
 
-  public static CommandLine parseArgs(String[] args) throws ParseException {
-    Options options = new Options();
-    options.addOption("c", true, "config (.properties) file");
-    options.addOption("e", true, "API environment (default is 'dev')");
-    options.addOption("d", true, "database name (default is 'reporting')");
-    options.addOption("h", false, "show help");
-
-    CommandLineParser parser = new DefaultParser();
-    return parser.parse(options, args);
-  }
+  private Options options = new Options();
 
   /**
    * extract options and args from CommandLine object so they can be passed to Tasks
@@ -99,17 +92,28 @@ public class App {
       String taskName = cliArgs[0];
       run(taskName, commandLine);
     } else {
-      System.out.println("Usage: alchemy TASK [params]");
-      System.out.println();
-      System.out.println("Available tasks (run with -h to get help for a specific task):");
-      System.out.println();
-      taskResolver.getTasks().stream()
+      StringBuilder footer = new StringBuilder();
+      footer.append("\nAvailable tasks (run with -h to get help for a specific task):\n\n");
+      footer.append(
+        taskResolver.getTasks().stream()
         .sorted((a,b) -> a.getClass().getSimpleName().compareTo(b.getClass().getSimpleName()))
-        .forEach(task -> {
-        System.out.println("  " + task.getClass().getSimpleName() + " - " + task.getDescription());
-      });
-      System.out.println();
+        .map(task -> "  " + task.getClass().getSimpleName() + " - " + task.getDescription() + "\n")
+        .collect(Collectors.joining()));
+      footer.append("\n");
+
+      HelpFormatter formatter = new HelpFormatter();
+      formatter.printHelp(100, "alchemy TASK [params]", "", options, footer.toString(), true);
     }
+  }
+
+  public CommandLine parseArgs(String[] args) throws ParseException {
+    options.addOption("c", true, "config (.properties) file");
+    options.addOption("e", true, "API environment (default is 'dev')");
+    options.addOption("d", true, "database name (default is 'reporting')");
+    options.addOption("h", false, "show help");
+
+    CommandLineParser parser = new DefaultParser();
+    return parser.parse(options, args);
   }
 
   public void initLogger(String logLevel) {
