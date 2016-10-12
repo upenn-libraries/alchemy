@@ -5,11 +5,11 @@ import edu.upenn.library.elements.api.Resource;
 /**
  * Resource: /journals/{issn}
  */
-public class JournalIssn extends Resource {
+public class JournalsIssn extends Resource {
 
   private final String issn;
 
-  public JournalIssn(String issn) {
+  public JournalsIssn(String issn) {
     this.issn = issn;
   }
 
