@@ -15,13 +15,14 @@ Elements. It aspires to provide:
   Elements users
 - A simple unified platform for scripts and sundry (vs scattered ad
   hoc scripts), reducing boilerplate
-- A way to do application configuration management (export system state to files)
+- A way to do basic application configuration management (export system state
+  to files)
 - A way to do testing and verification
 
 # Status
 
-This is early 'alpha' code. What exists should mostly work. Holes need
-to be filled in. Expect things to change.
+This is early 'alpha' code. What exists should mostly work. There's a
+lot missing that needs to be filled in. Expect interfaces to change.
 
 # Installation and Configuration
 
@@ -145,4 +146,5 @@ you from constructing invalid ones.
 # Contributing
 
 This project welcomes contributions, especially of tasks that are
-broadly useful to the Elements user community at large.
+broadly useful to the Elements user community at large. Please submit
+pull requests.
