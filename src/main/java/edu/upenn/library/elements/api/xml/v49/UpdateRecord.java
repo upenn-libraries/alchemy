@@ -35,9 +35,19 @@ public class UpdateRecord extends XMLDocument {
     Element field = new Element("field", XML.apiNs);
     field.setAttribute("name", fieldName);
     field.setAttribute("operation", op.name().toLowerCase());
-    field.addContent(element);
+    if(element != null) {
+      field.addContent(element);
+    }
 
     fields.addContent(field);
+  }
+
+  /**
+   * Add a field element, with no elements under it.
+   * This is how the "clear" operation works.
+   */
+  public void addField(Operation op, String fieldName) {
+    addField(op, fieldName, null);
   }
 
   /**
