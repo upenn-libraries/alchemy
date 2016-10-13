@@ -66,6 +66,20 @@ java -cp "lib/*" edu.upenn.library.elements.App CategoryTypesReport publications
 ./alchemy.sh -e prod CategoryTypesReport publications pubtypes.csv
 ```
 
+# Tasks
+
+Currently available tasks:
+
+```
+  CategoryTypesReport - Generate .CSV report of field definitions
+  Dump - Pretty-print raw XML response from API endpoint (like curl)
+  GetCVStoredProcedures - Write CV-related stored procedures to .sql files
+  GetReportAssets - Fetch all reporting assets by scraping SQL Server Report Manager
+  GetUserId - find the user ID for a given username
+  GroupsReport - Generate .CSV report of groups.
+  SampleImportActivityAndCreateRelationship - Sample task for purely illustrative purposes
+```
+
 # Writing your own tasks
 
 Steps:
