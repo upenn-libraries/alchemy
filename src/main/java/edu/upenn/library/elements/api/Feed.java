@@ -8,7 +8,9 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import org.jdom2.Element;
 
 /**
- * Wrapper around SyndFeed to make extracting data easier
+ * Represents a feed returned from an API resource.
+ * This is a wrapper around SyndFeed to make extracting
+ * data specifically relevant to the API resource easier.
  */
 public class Feed {
 
