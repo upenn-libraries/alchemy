@@ -19,7 +19,7 @@ public class SampleImportActivityAndCreateRelationship extends Task {
 
   @Override
   public String getDescription() {
-    return "Sample task for purely illustrative purposes";
+    return "Sample task illustrating data creation using API";
   }
 
   @Override

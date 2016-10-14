@@ -13,6 +13,7 @@ import edu.upenn.library.elements.tasks.GetCVStoredProcedures;
 import edu.upenn.library.elements.tasks.GetReportAssets;
 import edu.upenn.library.elements.tasks.GetUserId;
 import edu.upenn.library.elements.tasks.GroupsReport;
+import edu.upenn.library.elements.tasks.SamplePublicationSearch;
 import edu.upenn.library.elements.tasks.SampleImportActivityAndCreateRelationship;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -49,6 +50,7 @@ public class App {
     taskResolver.addTask(new GetReportAssets());
     taskResolver.addTask(new GetUserId());
     taskResolver.addTask(new GroupsReport());
+    taskResolver.addTask(new SamplePublicationSearch());
     taskResolver.addTask(new SampleImportActivityAndCreateRelationship());
     return taskResolver;
   }

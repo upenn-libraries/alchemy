@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
@@ -144,6 +148,151 @@ public class Api {
     }
 
     return constructFeed(resource, response);
+  }
+
+  class FeedIterator implements Iterator<Feed> {
+    private boolean initialFeed = false;
+    private Feed feed;
+    private Resource resource;
+
+    public FeedIterator(Resource resource) {
+      this.resource = resource;
+    }
+
+    /**
+     * Constructor that uses passed-in Feed as first one to iterate through
+     * @param feed
+     */
+    public FeedIterator(Feed feed) {
+      this.feed = feed;
+      this.initialFeed = true;
+    }
+
+    @Override
+    public boolean hasNext() {
+      if (!initialFeed && feed != null) {
+        Pagination pagination = feed.getPagination();
+        return pagination.getThisPageNum() < pagination.getNextPageNum();
+      }
+      return true;
+    }
+
+    @Override
+    public Feed next() {
+      if(initialFeed) {
+        // just return it
+        initialFeed = false;
+      } else if(feed == null) {
+        try {
+          feed = getFeed(resource);
+        } catch (Exception e) {
+          logger.error("error in getFeed() in FeedIterator.hasNext(): " + e.toString());
+        }
+      } else {
+        try {
+          feed = getNextPage(feed);
+        } catch(Exception e) {
+          logger.error("error in getNextPage() in FeedIterator.hasNext(): " + e.toString());
+        }
+      }
+      return feed;
+    }
+  }
+
+  class FeedEntriesIterator implements Iterator<FeedEntry> {
+    private Iterator<Feed> feedIter;
+    private Iterator<FeedEntry> feedEntryIter = Collections.emptyIterator();
+
+    /**
+     * Constructor that sets up iterator to use passed-in Resource
+     * @param resource
+     */
+    public FeedEntriesIterator(Resource resource) {
+      this.feedIter = getFeedIterator(resource);
+    }
+
+    /**
+     * Constructor that uses passed-in Feed as first one to iterate through
+     * @param feed
+     */
+    public FeedEntriesIterator(Feed feed) {
+      this.feedIter = getFeedIterator(feed);
+    }
+
+    @Override
+    public boolean hasNext() {
+      return feedEntryIter.hasNext() || feedIter.hasNext();
+    }
+
+    @Override
+    public FeedEntry next() {
+      if (!feedEntryIter.hasNext()) {
+        if(feedIter.hasNext()) {
+          Feed nextFeed = feedIter.next();
+          feedEntryIter = nextFeed.getEntries().iterator();
+        }
+      }
+      if(feedEntryIter.hasNext()) {
+        return feedEntryIter.next();
+      }
+      throw new NoSuchElementException();
+    }
+  }
+
+  /**
+   * Returns an iterator of Feeds for a given Resource.
+   * This is useful when paging through a set of results that spans across multiple Feeds,
+   * and you are interested in data at the Feed level. If you only care about entries,
+   * see getEntriesIterator.
+   * @param resource
+   * @return
+   */
+  public Iterator<Feed> getFeedIterator(Resource resource) {
+    return new FeedIterator(resource);
+  }
+
+  public Iterator<Feed> getFeedIterator(Feed feed) {
+    return new FeedIterator(feed);
+  }
+
+  /**
+   * Returns an iterator of FeedEntry objects for a given Resource.
+   * This is useful when paging through a set of results that spans across multiple Feeds,
+   * and you are interested in data at the Entry level.
+   * @param resource
+   * @return
+   */
+  public Iterator<FeedEntry> getFeedEntriesIterator(Resource resource) {
+    return new FeedEntriesIterator(resource);
+  }
+
+  /**
+   * Returns an iterator of FeedEntry objects, using Feed as the initial feed.
+   * @param feed
+   * @return
+   */
+  public Iterator<FeedEntry> getFeedEntriesIterator(Feed feed) {
+    return new FeedEntriesIterator(feed);
+  }
+
+  /**
+   * Gets the next page of a feed
+   * @param feed
+   * @return
+   * @throws Exception
+   */
+  public Feed getNextPage(Feed feed) throws Exception {
+    Resource resourceCopy = (Resource) feed.getResource().clone();
+    Pagination pagination = feed.getPagination();
+    long page = 0;
+    if(pagination != null) {
+      page = feed.getPagination().getNextPageNum();
+    }
+    if(page == 0) {
+      return null;
+    }
+    resourceCopy.setParam("page", String.valueOf(page));
+    return getFeed(resourceCopy);
   }
 
   public Feed postDocument(Resource resource, XMLDocument document) throws Exception {

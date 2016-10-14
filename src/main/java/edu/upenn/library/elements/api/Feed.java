@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
+import org.jdom2.Element;
 
 /**
  * Wrapper around SyndFeed to make extracting data easier
@@ -19,6 +20,10 @@ public class Feed {
     this.resource = resource;
   }
 
+  public Resource getResource() {
+    return resource;
+  }
+
   public List<FeedEntry> getEntries() {
     ArrayList<FeedEntry> results = new ArrayList<>();
     for(SyndEntry entry : syndFeed.getEntries()) {
@@ -28,6 +33,17 @@ public class Feed {
               .collect(Collectors.toList()));
     }
     return results;
+  }
+
+  public Pagination getPagination() {
+    Element paginationE = syndFeed
+      .getForeignMarkup().stream()
+      .filter(e -> "pagination".equals(e.getName()))
+      .findFirst().orElse(null);
+    if(paginationE != null) {
+      return new Pagination(paginationE);
+    }
+    return null;
   }
 
 }
