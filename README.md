@@ -8,8 +8,8 @@ This project is not affiliated with or supported by Symplectic.
 
 # Features and Uses
 
-alchemy is meant to be an extensible swiss army knife for working with
-Elements. It aspires to provide:
+alchemy is a cross-platform, extensible swiss army knife for working
+with Elements. It aspires to provide:
 
 - A collection of pre-packaged, ready-to-run tasks broadly useful to
   Elements users
@@ -77,7 +77,8 @@ Currently available tasks:
   GetReportAssets - Fetch all reporting assets by scraping SQL Server Report Manager
   GetUserId - find the user ID for a given username
   GroupsReport - Generate .CSV report of groups.
-  SampleImportActivityAndCreateRelationship - Sample task for purely illustrative purposes
+  SampleImportActivityAndCreateRelationship - Sample task illustrating data creation using API
+  SamplePublicationSearch - Sample task illustrating iteration over multiple feeds
 ```
 
 # Writing your own tasks
