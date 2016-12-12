@@ -3,11 +3,14 @@
 # script to run alchemy CLI, from either repo project directory
 # in which the app was built, or the distributed .zip/.tar.gz package
 
-lib="lib"
+script="$(readlink -f ${BASH_SOURCE[0]})"
+script_dir="$(dirname $script)"
 
-if [ -d "target" ]
+lib="$script_dir/lib"
+
+if [ -d "$script_dir/target" ]
 then
-    lib="./target"
+    lib="$script_dir/target"
     if compgen -G "$lib/*-all.jar" > /dev/null; then
         uberjar="$lib/*-all.jar"
     fi
