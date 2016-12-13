@@ -3,7 +3,15 @@
 # script to run alchemy CLI, from either repo project directory
 # in which the app was built, or the distributed .zip/.tar.gz package
 
-script="$(readlink -f ${BASH_SOURCE[0]})"
+platform="$(uname)"
+
+if [ "$platform" == "Darwin" ]
+then
+    script="$(python -c 'import os,sys;print(os.path.realpath(sys.argv[1]))' ${BASH_SOURCE[0]})"
+else
+    script="$(readlink -f ${BASH_SOURCE[0]})"
+fi
+
 script_dir="$(dirname $script)"
 
 lib="$script_dir/lib"
