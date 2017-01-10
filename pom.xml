@@ -134,6 +134,20 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <!--
+                                filter out manifest signature filters to avoid this error:
+                                "java.lang.SecurityException: Invalid signature file digest for Manifest main attributes"
+                            -->
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
                             <outputFile>${project.build.directory}/${project.artifactId}-${project.version}-all.jar</outputFile>
                             <!-- minimizeJar doesn't seem to work; causes some classes to not be included? -->
                             <!-- <minimizeJar>true</minimizeJar> -->
