@@ -1,6 +1,8 @@
 package edu.upenn.library.elements.tasks;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -189,7 +191,7 @@ public class GetReportAssets extends Task {
   /**
    * Fetches the file (can be a report, dataset) represented by the link object, and writes it out to disk
    */
-  public static void fetchFile(String targetDir, CloseableHttpClient httpClient, String reportManagerUrl, Element link) throws Exception {
+  public void fetchFile(String targetDir, CloseableHttpClient httpClient, String reportManagerUrl, Element link) throws Exception {
     String url = getBaseUrl(new URL(reportManagerUrl)) + link.attr("href");
     URL urlObj = new URL(url);
     String itemPath = extractItemPath(urlObj);
@@ -220,12 +222,28 @@ public class GetReportAssets extends Task {
     if(downloadUrl != null) {
       HttpGet httpget = new HttpGet(downloadUrl);
       CloseableHttpResponse response = httpClient.execute(httpget);
+      boolean error = false;
 
-      if(!targetFile.getParentFile().exists()) {
-        targetFile.getParentFile().mkdirs();
+      if(response.getStatusLine().getStatusCode() == 200) {
+        if(!targetFile.getParentFile().exists()) {
+          targetFile.getParentFile().mkdirs();
+        }
+
+        Files.copy(response.getEntity().getContent(), targetFile.toPath(), REPLACE_EXISTING);
+
+        BufferedReader reader = new BufferedReader(new FileReader(targetFile));
+        if(reader.lines().anyMatch(line -> line.contains("Error - Report Manager"))) {
+          targetFile.delete();
+          error = true;
+        }
+      } else {
+        error = true;
       }
 
-      Files.copy(response.getEntity().getContent(), targetFile.toPath(), REPLACE_EXISTING);
+      if(error) {
+        getLogger().warn(
+          String.format("Error fetching file %s (possible permissions problem?), skipping.", itemPath));
+      }
     }
   }
 
